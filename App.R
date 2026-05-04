@@ -119,7 +119,7 @@ server <- function(input, output, session) {
   output$copy_btn_ui <- renderUI({ 
     req(input$device_lat)
     clip_text <- paste0("Lat: ", input$device_lat, ", Lng: ", input$device_lng, " (Acc: ", input$device_acc, "m)")
-    rclipButton("clipbtn", "Copy Full Reading", clip_text, icon("clipboard"), class="btn-sm") 
+    rclipButton("clipbtn", "Copy Full Reading", clip_text, class="btn-sm") 
   })
   
   output$accuracy_status <- renderUI({ 
