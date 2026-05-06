@@ -1,11 +1,31 @@
 
-pacman::p_load(shiny, leaflet, sf, dplyr, shinyjs, rclipboard, rmapshaper)
+pacman::p_load(shiny, leaflet, sf, dplyr, shinyjs, rclipboard, rmapshaper, googlesheets4)
 
 
+# ─── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
+SHEET_ID   <- "1l8SWu-LqcCFq6j_ypLk6LYu-kI1mHFv3xmwk4fF45ik"
+SHEET_NAME <- "session_logs"
 
-# --- JAVASCRIPT: AUTO-LOCK LOGIC ---
+# Authentication — choose ONE option:
+#  Option A │ Interactive / local use: comment the line below out.
+#            │ The browser will open for OAuth on first run; token cached after.
+#  Option B │ Deployed app: supply your service-account JSON file path.
+gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
+# ──────────────────────────────────────────────────────────────────────────────
+
+
+# --- JAVASCRIPT: AUTO-LOCK + DEVICE INFO ---
 js_geoloc <- "
 var watchId = null;
+
+// Send browser fingerprint once on page load
+$(document).ready(function() {
+  var info = navigator.userAgent +
+             ' | Screen: ' + screen.width + 'x' + screen.height +
+             ' | Lang: '   + navigator.language;
+  Shiny.setInputValue('device_info', info);
+});
+
 shinyjs.start_watch = function(targetAcc) {
   if (watchId !== null) { navigator.geolocation.clearWatch(watchId); }
   var options = { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 };
@@ -22,6 +42,7 @@ shinyjs.start_watch = function(targetAcc) {
     }
   }, function(err) { alert('GPS Error: ' + err.message); }, options);
 };
+
 shinyjs.stop_watch = function() {
   if (watchId !== null) {
     navigator.geolocation.clearWatch(watchId);
@@ -40,13 +61,11 @@ ui <- fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-      # SECTION 1: GPS
       h4("1. GPS Location Capture"),
       uiOutput("gps_controls"),
       br(),
       uiOutput("gps_progress_ui"),
       
-      # UPDATED: Clearer output for captured readings
       wellPanel(
         strong("Captured Readings:"),
         verbatimTextOutput("coords_text"),
@@ -56,16 +75,14 @@ ui <- fluidPage(
       uiOutput("accuracy_status"),
       hr(),
       
-      # SECTION 2: LAYERS
       h4("2. Layer Selection"),
-      selectInput("country_file", "Select ADM3 Shapefile:", choices = NULL),
-      selectInput("cluster_file", "Select AEZ/Cluster Shapefile:", choices = NULL),
+      selectInput("country_file",  "Select ADM3 Shapefile:",        choices = NULL),
+      selectInput("cluster_file",  "Select AEZ/Cluster Shapefile:", choices = NULL),
       actionButton("load_data", "Load Shapefiles", class = "btn-info", width = "100%"),
       
       uiOutput("target_aez_ui"),
       hr(),
       
-      # SECTION 3: ANALYSIS
       uiOutput("analyze_button_ui")
     ),
     
@@ -78,160 +95,324 @@ ui <- fluidPage(
   )
 )
 
+
 server <- function(input, output, session) {
   
-  target_acc_limit <- 200 
+  target_acc_limit <- 200
+  
+  # ── Unique session ID ──────────────────────────────────────────────────────
+  session_id <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S"), "_", sample(100000:999999, 1))
+  
+  # ── Session-log accumulator ────────────────────────────────────────────────
+  # All fields collected during the session; written as ONE row to the sheet.
+  slog <- reactiveValues(
+    session_start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
+    analysis_time      = NA_character_,
+    device_info        = NA_character_,
+    latitude           = NA_real_,
+    longitude          = NA_real_,
+    accuracy_m         = NA_real_,
+    adm3_shapefile     = NA_character_,
+    cluster_shapefile  = NA_character_,
+    target_aez         = NA_character_,
+    detected_aez       = NA_character_,
+    country            = NA_character_,
+    province           = NA_character_,
+    district           = NA_character_,
+    ward               = NA_character_,
+    distance_to_target = NA_character_,
+    neighboring_aezs   = NA_character_,
+    neighboring_wards  = NA_character_,
+    error_message      = NA_character_,
+    written            = FALSE          # guard against double-writes
+  )
+  
+  # ── Single-row writer (works from both reactive and onSessionEnded context) ─
+  write_session_log <- function() {
+    if (isTRUE(isolate(slog$written))) return(invisible(NULL))
+    tryCatch({
+      safe_chr <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else as.character(x[[1]])
+      safe_dbl <- function(x) if (is.null(x) || length(x) == 0) NA_real_      else as.numeric(x[[1]])
+      
+      row <- data.frame(
+        session_id         = safe_chr(session_id),
+        session_start      = safe_chr(isolate(slog$session_start)),
+        analysis_time      = safe_chr(isolate(slog$analysis_time)),
+        device_info        = safe_chr(isolate(slog$device_info)),
+        latitude           = safe_dbl(isolate(slog$latitude)),
+        longitude          = safe_dbl(isolate(slog$longitude)),
+        accuracy_m         = safe_dbl(isolate(slog$accuracy_m)),
+        adm3_shapefile     = safe_chr(isolate(slog$adm3_shapefile)),
+        cluster_shapefile  = safe_chr(isolate(slog$cluster_shapefile)),
+        target_aez         = safe_chr(isolate(slog$target_aez)),
+        detected_aez       = safe_chr(isolate(slog$detected_aez)),
+        country            = safe_chr(isolate(slog$country)),
+        province           = safe_chr(isolate(slog$province)),
+        district           = safe_chr(isolate(slog$district)),
+        ward               = safe_chr(isolate(slog$ward)),
+        distance_to_target = safe_chr(isolate(slog$distance_to_target)),
+        neighboring_aezs   = safe_chr(isolate(slog$neighboring_aezs)),
+        neighboring_wards  = safe_chr(isolate(slog$neighboring_wards)),
+        error_message      = safe_chr(isolate(slog$error_message)),
+        stringsAsFactors   = FALSE
+      )
+      googlesheets4::sheet_append(SHEET_ID, row, sheet = SHEET_NAME)
+      isolate({ slog$written <- TRUE })
+    }, error = function(e) {
+      message("[SHEET LOG ERROR] ", e$message)
+    })
+  }
+  # ──────────────────────────────────────────────────────────────────────────
+  
   
   # --- 1. GPS LOGIC ---
   output$gps_controls <- renderUI({
     if (isTRUE(input$gps_active)) {
       actionButton("stop_gps", "Scanning... (Manual Lock)", class = "btn-warning", width = "100%")
     } else {
-      actionButton("get_loc", "Start GPS Auto-Capture", class = "btn-success btn-lg", icon = icon("play"), width = "100%")
+      actionButton("get_loc", "Start GPS Auto-Capture",
+                   class = "btn-success btn-lg", icon = icon("play"), width = "100%")
     }
   })
   
-  observeEvent(input$get_loc, { shinyjs::js$start_watch(target_acc_limit) })
+  observeEvent(input$get_loc,  { shinyjs::js$start_watch(target_acc_limit) })
   observeEvent(input$stop_gps, { shinyjs::js$stop_watch() })
   
-  # Zoom on Lock
+  # Capture device info as soon as JS sends it
+  observeEvent(input$device_info, {
+    slog$device_info <- input$device_info
+  }, once = TRUE)
+  
+  # Capture GPS coords when locked; zoom map
   observeEvent(input$gps_active, {
     if (isFALSE(input$gps_active) && isTruthy(input$device_lat)) {
-      leafletProxy("map") %>% flyTo(lng = input$device_lng, lat = input$device_lat, zoom = 17)
+      slog$latitude  <- input$device_lat
+      slog$longitude <- input$device_lng
+      slog$accuracy_m <- input$device_acc
+      leafletProxy("map") |>
+        flyTo(lng = input$device_lng, lat = input$device_lat, zoom = 17)
     }
   })
   
   output$gps_progress_ui <- renderUI({
     req(input$device_acc)
-    progress <- max(0, min(100, (1 - (input$device_acc - target_acc_limit) / 800) * 100))
-    bar_class <- if(input$device_acc <= target_acc_limit) "progress-bar-success" else "progress-bar-striped active progress-bar-warning"
-    tags$div(class = "progress", tags$div(class = paste("progress-bar", bar_class), style = paste0("width: ", progress, "%;"), paste0(round(input$device_acc, 1), " m")))
+    progress  <- max(0, min(100, (1 - (input$device_acc - target_acc_limit) / 800) * 100))
+    bar_class <- if (input$device_acc <= target_acc_limit)
+      "progress-bar-success"
+    else
+      "progress-bar-striped active progress-bar-warning"
+    tags$div(
+      class = "progress",
+      tags$div(
+        class = paste("progress-bar", bar_class),
+        style = paste0("width: ", progress, "%;"),
+        paste0(round(input$device_acc, 1), " m")
+      )
+    )
   })
   
-  # UPDATED: Sidebar now shows all 3 key readings clearly
-  output$coords_text <- renderText({ 
+  output$coords_text <- renderText({
     req(input$device_lat, input$device_acc)
-    paste0("Latitude:  ", round(input$device_lat, 6), 
-           "\nLongitude: ", round(input$device_lng, 6), 
-           "\nAccuracy:  ±", round(input$device_acc, 1), " m") 
+    paste0(
+      "Latitude:  ", round(input$device_lat, 6),
+      "\nLongitude: ", round(input$device_lng, 6),
+      "\nAccuracy:  ±", round(input$device_acc, 1), " m"
+    )
   })
   
-  output$copy_btn_ui <- renderUI({ 
+  output$copy_btn_ui <- renderUI({
     req(input$device_lat)
-    clip_text <- paste0("Lat: ", input$device_lat, ", Lng: ", input$device_lng, " (Acc: ", input$device_acc, "m)")
-    rclipButton("clipbtn", "Copy Full Reading", clip_text, class="btn-sm") 
+    clip_text <- paste0(
+      "Lat: ", input$device_lat,
+      ", Lng: ", input$device_lng,
+      " (Acc: ", input$device_acc, "m)"
+    )
+    rclipButton("clipbtn", "Copy Full Reading", clip_text, class = "btn-sm")
   })
   
-  output$accuracy_status <- renderUI({ 
+  output$accuracy_status <- renderUI({
     req(input$device_acc)
     if (input$device_acc <= target_acc_limit) {
-      div(style = "color: green; font-weight: bold;", icon("check-double"), " Location Locked") 
+      div(style = "color: green; font-weight: bold;",
+          icon("check-double"), " Location Locked")
     } else {
-      div(style = "color: orange;", icon("sync", class = "fa-spin"), " Optimizing GPS...") 
+      div(style = "color: orange;",
+          icon("sync", class = "fa-spin"), " Optimizing GPS...")
     }
   })
   
+  
   # --- 2. DATA LOADING ---
   observe({
-    updateSelectInput(session, "country_file", choices = list.files("gadm_data", pattern = "\\.(shp|geojson)$"))
-    updateSelectInput(session, "cluster_file", choices = list.files("cluster_data", pattern = "\\.(shp|geojson)$"))
+    updateSelectInput(session, "country_file",
+                      choices = list.files("gadm_data",    pattern = "\\.(shp|geojson)$"))
+    updateSelectInput(session, "cluster_file",
+                      choices = list.files("cluster_data", pattern = "\\.(shp|geojson)$"))
   })
   
   loaded_layers <- eventReactive(input$load_data, {
     req(input$country_file, input$cluster_file)
-    withProgress(message = 'Parsing Shapefiles...', value = 0.5, {
-      list(
-        country = st_read(file.path("gadm_data", input$country_file), quiet = TRUE) %>% st_transform(4326),
-        cluster = st_read(file.path("cluster_data", input$cluster_file), quiet = TRUE) %>% st_transform(4326)
-      )
+    slog$adm3_shapefile    <- input$country_file
+    slog$cluster_shapefile <- input$cluster_file
+    
+    tryCatch({
+      withProgress(message = "Parsing Shapefiles...", value = 0.5, {
+        list(
+          country = st_read(file.path("gadm_data",    input$country_file), quiet = TRUE) |> st_transform(4326),
+          cluster = st_read(file.path("cluster_data", input$cluster_file), quiet = TRUE) |> st_transform(4326)
+        )
+      })
+    }, error = function(e) {
+      slog$error_message <- paste("Shapefile load error:", e$message)
+      NULL
     })
   })
   
   output$target_aez_ui <- renderUI({
     req(loaded_layers())
-    df <- loaded_layers()$cluster
+    df       <- loaded_layers()$cluster
     col_name <- grep("cluster|AEZ", names(df), ignore.case = TRUE, value = TRUE)[1]
     req(col_name)
-    choices <- sort(unique(as.character(df[[col_name]])))
-    tagList(br(), h4("3. Target Validation"), selectInput("target_aez", "Target AEZ (Goal):", choices = choices))
+    choices  <- sort(unique(as.character(df[[col_name]])))
+    tagList(
+      br(),
+      h4("3. Target Validation"),
+      selectInput("target_aez", "Target AEZ (Goal):", choices = choices)
+    )
   })
   
-  # --- 3. FINAL DIAGNOSTIC REPORT ---
+  
+  # --- 3. ANALYSIS ---
+  analysis_result <- reactiveVal(NULL)
+  
   output$analyze_button_ui <- renderUI({
-    if (!isTRUE(input$gps_active) && isTruthy(input$device_acc) && !is.null(loaded_layers())) {
-      actionButton("analyze", "Generate Diagnostic Report", class = "btn-primary btn-block", style = "height: 60px; font-weight: bold;")
+    if (!isTRUE(input$gps_active) && isTruthy(input$device_acc) &&
+        !is.null(loaded_layers())) {
+      actionButton("analyze", "Generate Diagnostic Report",
+                   class = "btn-primary btn-block",
+                   style = "height: 60px; font-weight: bold;")
     }
+  })
+  
+  observeEvent(input$analyze, {
+    req(loaded_layers(), input$target_aez, input$device_lat)
+    
+    tryCatch({
+      pnt      <- st_as_sf(data.frame(x = input$device_lng, y = input$device_lat),
+                           coords = c("x", "y"), crs = 4326)
+      res_adm  <- st_join(pnt, loaded_layers()$country, join = st_intersects)
+      res_clus <- st_join(pnt, loaded_layers()$cluster, join = st_intersects)
+      
+      find_neighbors <- function(point, layer, col_pattern) {
+        current_idx    <- as.integer(st_intersects(point, layer))
+        if (is.na(current_idx)) return("None")
+        neighbors_idx  <- st_touches(layer[current_idx, ], layer)[[1]]
+        col_name       <- grep(col_pattern, names(layer), ignore.case = TRUE, value = TRUE)[1]
+        neighbor_names <- as.character(layer[[col_name]][neighbors_idx])
+        if (length(neighbor_names) == 0) return("None found")
+        paste(unique(neighbor_names), collapse = ", ")
+      }
+      
+      cluster_df  <- loaded_layers()$cluster
+      clus_col    <- grep("cluster|AEZ", names(cluster_df), ignore.case = TRUE, value = TRUE)[1]
+      target_poly <- cluster_df[cluster_df[[clus_col]] == input$target_aez, ]
+      dist_m      <- as.numeric(min(st_distance(pnt, target_poly)))
+      
+      get_v <- function(df, pat) {
+        if (nrow(df) == 0) return("Outside Boundary")
+        cn <- grep(pat, names(df), ignore.case = TRUE, value = TRUE)[1]
+        if (is.na(cn)) return("Field Not Found")
+        as.character(df[[cn]][1])
+      }
+      
+      v_country  <- get_v(res_adm,  "NAME_0")
+      v_province <- get_v(res_adm,  "NAME_1")
+      v_district <- get_v(res_adm,  "NAME_2")
+      v_ward     <- get_v(res_adm,  "NAME_3")
+      v_det_aez  <- get_v(res_clus, "cluster|AEZ")
+      v_dist     <- ifelse(dist_m < 1, "INSIDE TARGET", paste0(round(dist_m, 1), " m"))
+      v_nb_aez   <- find_neighbors(pnt, loaded_layers()$cluster, "cluster|AEZ")
+      v_nb_ward  <- find_neighbors(pnt, loaded_layers()$country,  "NAME_3")
+      
+      result_df <- data.frame(
+        Metric = c(
+          "Country (NAME_0)", "Province (NAME_1)", "District (NAME_2)", "Ward (NAME_3)",
+          "Detected AEZ", "Target AEZ", "Distance to Target",
+          "Neighboring AEZs", "Neighboring Wards",
+          "---",
+          "Captured Latitude", "Captured Longitude", "Capture Accuracy"
+        ),
+        Result = c(
+          v_country, v_province, v_district, v_ward,
+          v_det_aez,
+          as.character(input$target_aez),
+          v_dist,
+          v_nb_aez, v_nb_ward,
+          "---",
+          as.character(round(input$device_lat, 6)),
+          as.character(round(input$device_lng, 6)),
+          paste0("±", round(input$device_acc, 1), " m")
+        ),
+        stringsAsFactors = FALSE
+      )
+      
+      analysis_result(result_df)
+      
+      # Populate accumulator with full results then write the single log row
+      slog$analysis_time      <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+      slog$target_aez         <- input$target_aez
+      slog$detected_aez       <- v_det_aez
+      slog$country            <- v_country
+      slog$province           <- v_province
+      slog$district           <- v_district
+      slog$ward               <- v_ward
+      slog$distance_to_target <- v_dist
+      slog$neighboring_aezs   <- v_nb_aez
+      slog$neighboring_wards  <- v_nb_ward
+      
+      write_session_log()
+      
+    }, error = function(e) {
+      slog$error_message <- paste("Analysis error:", e$message)
+      write_session_log()
+      showNotification(paste("Analysis failed:", e$message), type = "error")
+    })
   })
   
   output$analysis_table <- renderTable({
-    req(input$analyze, loaded_layers(), input$target_aez)
-    
-    pnt <- st_as_sf(data.frame(x = input$device_lng, y = input$device_lat), coords = c("x", "y"), crs = 4326)
-    
-    # Joins
-    res_adm <- st_join(pnt, loaded_layers()$country, join = st_intersects)
-    res_clus <- st_join(pnt, loaded_layers()$cluster, join = st_intersects)
-    
-    # Neighbor logic
-    find_neighbors <- function(point, layer, col_pattern) {
-      current_idx <- as.integer(st_intersects(point, layer))
-      if (is.na(current_idx)) return("None")
-      neighbors_idx <- st_touches(layer[current_idx, ], layer)[[1]]
-      col_name <- grep(col_pattern, names(layer), ignore.case = TRUE, value = TRUE)[1]
-      neighbor_names <- as.character(layer[[col_name]][neighbors_idx])
-      if (length(neighbor_names) == 0) return("None found")
-      return(paste(unique(neighbor_names), collapse = ", "))
-    }
-    
-    # Distance to target
-    cluster_df <- loaded_layers()$cluster
-    clus_col <- grep("cluster|AEZ", names(cluster_df), ignore.case = TRUE, value = TRUE)[1]
-    target_poly <- cluster_df[cluster_df[[clus_col]] == input$target_aez, ]
-    dist_m <- as.numeric(min(st_distance(pnt, target_poly)))
-    
-    # Attribute helper
-    get_v <- function(df, pat) {
-      if (nrow(df) == 0) return("Outside Boundary")
-      cn <- grep(pat, names(df), ignore.case = TRUE, value = TRUE)[1]
-      if (is.na(cn)) return("Field Not Found")
-      return(as.character(df[[cn]][1]))
-    }
-    
-    data.frame(
-      Metric = c("Country (NAME_0)", "Province (NAME_1)", "District (NAME_2)", "Ward (NAME_3)", 
-                 "Detected AEZ", "Target AEZ", "Distance to Target", 
-                 "Neighboring AEZs", "Neighboring Wards", 
-                 "---",
-                 "Captured Latitude", "Captured Longitude", "Capture Accuracy"),
-      Result = c(
-        get_v(res_adm, "NAME_0"), get_v(res_adm, "NAME_1"), get_v(res_adm, "NAME_2"), get_v(res_adm, "NAME_3"),
-        get_v(res_clus, "cluster|AEZ"),
-        as.character(input$target_aez),
-        ifelse(dist_m < 1, "INSIDE TARGET", paste0(round(dist_m, 1), " m")),
-        find_neighbors(pnt, loaded_layers()$cluster, "cluster|AEZ"),
-        find_neighbors(pnt, loaded_layers()$country, "NAME_3"),
-        "---",
-        as.character(round(input$device_lat, 6)),
-        as.character(round(input$device_lng, 6)),
-        paste0("±", round(input$device_acc, 1), " m")
-      )
-    )
+    req(analysis_result())
+    analysis_result()
   }, striped = TRUE, bordered = TRUE)
   
+  
   # --- 4. MAP ---
-  output$map <- renderLeaflet({ leaflet() %>% addProviderTiles(providers$OpenStreetMap) %>% setView(0, 0, 2) })
+  output$map <- renderLeaflet({
+    leaflet() |>
+      addProviderTiles(providers$OpenStreetMap) |>
+      setView(0, 0, 2)
+  })
   
   observeEvent(input$device_lat, {
-    col <- if(input$device_acc <= target_acc_limit) "green" else "orange"
-    leafletProxy("map") %>% clearGroup("pos") %>%
-      addCircles(input$device_lng, input$device_lat, radius = input$device_acc, group = "pos", color = col) %>%
+    col <- if (input$device_acc <= target_acc_limit) "green" else "orange"
+    leafletProxy("map") |>
+      clearGroup("pos") |>
+      addCircles(input$device_lng, input$device_lat,
+                 radius = input$device_acc, group = "pos", color = col) |>
       addMarkers(input$device_lng, input$device_lat, group = "pos")
   })
   
   observeEvent(loaded_layers(), {
-    leafletProxy("map") %>% clearGroup("shp") %>%
-      addPolygons(data = loaded_layers()$country, group = "shp", color = "blue", weight = 1, fillOpacity = 0.05) %>%
-      addPolygons(data = loaded_layers()$cluster, group = "shp", color = "red", weight = 2, fillOpacity = 0.1)
+    leafletProxy("map") |>
+      clearGroup("shp") |>
+      addPolygons(data = loaded_layers()$country,
+                  group = "shp", color = "blue", weight = 1, fillOpacity = 0.05) |>
+      addPolygons(data = loaded_layers()$cluster,
+                  group = "shp", color = "red",  weight = 2, fillOpacity = 0.1)
+  })
+  
+  # Fallback write on disconnect (catches sessions where analysis was never run)
+  session$onSessionEnded(function() {
+    write_session_log()
   })
 }
 
