@@ -152,6 +152,7 @@ server <- function(input, output, session) {
   slog <- reactiveValues(
     session_start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
     session_end        = NA_character_,
+    session_status     = "opened",        # updated as session progresses
     analysis_time      = NA_character_,
     device_id          = NA_character_,
     device_info        = NA_character_,
@@ -187,6 +188,7 @@ server <- function(input, output, session) {
         session_id         = safe_chr(session_id),
         session_start      = safe_chr(isolate(slog$session_start)),
         session_end        = safe_chr(isolate(slog$session_end)),
+        session_status     = safe_chr(isolate(slog$session_status)),
         analysis_time      = safe_chr(isolate(slog$analysis_time)),
         device_id          = safe_chr(isolate(slog$device_id)),
         device_info        = safe_chr(isolate(slog$device_info)),
@@ -414,6 +416,7 @@ server <- function(input, output, session) {
       analysis_result(result_df)
       
       # Populate accumulator with full results then write the single log row
+      slog$session_status     <- "analysis_completed"
       slog$analysis_time      <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
       slog$target_aez         <- input$target_aez
       slog$detected_aez       <- v_det_aez
@@ -428,7 +431,8 @@ server <- function(input, output, session) {
       write_session_log()
       
     }, error = function(e) {
-      slog$error_message <- paste("Analysis error:", e$message)
+      slog$session_status <- "error"
+      slog$error_message  <- paste("Analysis error:", e$message)
       write_session_log()
       showNotification(paste("Analysis failed:", e$message), type = "error")
     })
