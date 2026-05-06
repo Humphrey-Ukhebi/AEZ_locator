@@ -10,7 +10,7 @@ SHEET_NAME <- "session_logs"
 #  Option A │ Interactive / local use: comment the line below out.
 #            │ The browser will open for OAuth on first run; token cached after.
 #  Option B │ Deployed app: supply your service-account JSON file path.
-gs4_auth(path = Sys.getenv("humphrey-universal-c15e72d817f0.json"))
+gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
 # ──────────────────────────────────────────────────────────────────────────────
 
 
