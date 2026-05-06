@@ -3,19 +3,32 @@ pacman::p_load(shiny, leaflet, sf, dplyr, shinyjs, rclipboard, rmapshaper, googl
 
 
 # ─── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
-SHEET_ID   <- "1l8SWu-LqcCFq6j_ypLk6LYu-kI1mHFv3xmwk4fF45ik"
-SHEET_NAME <- "session_logs"
+SHEET_ID      <- "1l8SWu-LqcCFq6j_ypLk6LYu-kI1mHFv3xmwk4fF45ik"
+SHEET_NAME    <- "session_logs"
+LOGGING_ACTIVE <- FALSE   # set to TRUE once auth succeeds below
+
 local({
-  json_env <- Sys.getenv("GOOGLE_CREDENTIALS_JSON", unset = "")
-  if (nchar(json_env) > 0) {
-    tmp <- tempfile(fileext = ".json")
-    writeLines(json_env, tmp)
-    gs4_auth(path = tmp)
-  } else if (file.exists("humphrey-universal-c15e72d817f0.json")) {
-    gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
-  }
+  json_env <- Sys.getenv("GS_SERVICE_ACCOUNT", unset = "")
+
+  result <- tryCatch({
+    if (nchar(json_env) > 0) {
+      # Connect Cloud: gargle accepts a raw JSON string directly — no temp file needed
+      gs4_auth(path = json_env)
+    } else if (file.exists("humphrey-universal-c15e72d817f0.json")) {
+      # Local development: use the JSON file
+      gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
+    } else {
+      stop("No credentials found")
+    }
+    TRUE
+  }, error = function(e) {
+    message("[AUTH] Google Sheets auth failed: ", e$message,
+            "\nSession logging will be skipped.")
+    FALSE
+  })
+
+  LOGGING_ACTIVE <<- result
 })
-#gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
 # ──────────────────────────────────────────────────────────────────────────────
 
 
@@ -134,7 +147,8 @@ server <- function(input, output, session) {
   
   # ── Single-row writer (works from both reactive and onSessionEnded context) ─
   write_session_log <- function() {
-    if (isTRUE(isolate(slog$written))) return(invisible(NULL))
+    if (!LOGGING_ACTIVE)                  return(invisible(NULL))
+    if (isTRUE(isolate(slog$written)))    return(invisible(NULL))
     tryCatch({
       safe_chr <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else as.character(x[[1]])
       safe_dbl <- function(x) if (is.null(x) || length(x) == 0) NA_real_      else as.numeric(x[[1]])
