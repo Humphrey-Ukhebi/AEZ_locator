@@ -51,8 +51,17 @@ local({
 js_geoloc <- "
 var watchId = null;
 
-// Send browser fingerprint once on page load
+// Assign a persistent device ID (stored in localStorage) and send fingerprint
 $(document).ready(function() {
+  var deviceId = localStorage.getItem('aez_device_id');
+  if (!deviceId) {
+    var rand = Math.random().toString(36).substr(2, 6).toUpperCase();
+    var ts   = Date.now().toString(36).toUpperCase();
+    deviceId = 'DEV-' + rand + '-' + ts;
+    localStorage.setItem('aez_device_id', deviceId);
+  }
+  Shiny.setInputValue('device_id', deviceId);
+
   var info = navigator.userAgent +
              ' | Screen: ' + screen.width + 'x' + screen.height +
              ' | Lang: '   + navigator.language;
@@ -140,7 +149,9 @@ server <- function(input, output, session) {
   # All fields collected during the session; written as ONE row to the sheet.
   slog <- reactiveValues(
     session_start      = format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
+    session_end        = NA_character_,
     analysis_time      = NA_character_,
+    device_id          = NA_character_,
     device_info        = NA_character_,
     latitude           = NA_real_,
     longitude          = NA_real_,
@@ -167,11 +178,15 @@ server <- function(input, output, session) {
     tryCatch({
       safe_chr <- function(x) if (is.null(x) || length(x) == 0) NA_character_ else as.character(x[[1]])
       safe_dbl <- function(x) if (is.null(x) || length(x) == 0) NA_real_      else as.numeric(x[[1]])
-      
+
+      isolate({ slog$session_end <- format(Sys.time(), "%Y-%m-%d %H:%M:%S") })
+
       row <- data.frame(
         session_id         = safe_chr(session_id),
         session_start      = safe_chr(isolate(slog$session_start)),
+        session_end        = safe_chr(isolate(slog$session_end)),
         analysis_time      = safe_chr(isolate(slog$analysis_time)),
+        device_id          = safe_chr(isolate(slog$device_id)),
         device_info        = safe_chr(isolate(slog$device_info)),
         latitude           = safe_dbl(isolate(slog$latitude)),
         longitude          = safe_dbl(isolate(slog$longitude)),
@@ -212,7 +227,11 @@ server <- function(input, output, session) {
   observeEvent(input$get_loc,  { shinyjs::js$start_watch(target_acc_limit) })
   observeEvent(input$stop_gps, { shinyjs::js$stop_watch() })
   
-  # Capture device info as soon as JS sends it
+  # Capture device ID and info as soon as JS sends them
+  observeEvent(input$device_id, {
+    slog$device_id <- input$device_id
+  }, once = TRUE)
+
   observeEvent(input$device_info, {
     slog$device_info <- input$device_info
   }, once = TRUE)
