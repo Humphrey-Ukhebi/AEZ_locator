@@ -51,8 +51,10 @@ local({
 js_geoloc <- "
 var watchId = null;
 
-// Assign a persistent device ID (stored in localStorage) and send fingerprint
-$(document).ready(function() {
+// Assign a persistent device ID (stored in localStorage) and send fingerprint.
+// Must use 'shiny:connected' — not document.ready — because Shiny's WebSocket
+// is not open yet at DOM-ready time, so setInputValue would silently fail.
+$(document).on('shiny:connected', function() {
   var deviceId = localStorage.getItem('aez_device_id');
   if (!deviceId) {
     var rand = Math.random().toString(36).substr(2, 6).toUpperCase();
