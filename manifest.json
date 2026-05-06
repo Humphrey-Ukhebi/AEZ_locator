@@ -3359,7 +3359,7 @@
       "checksum": "05bdb783ee6514c8c072e47680af8ff7"
     },
     "App.R": {
-      "checksum": "8cab5dbe901bf0ef0682da8f033bc138"
+      "checksum": "edb7067cccaa5f61b2252ee72cbaddb4"
     },
     "cluster_data/Angola312Angola_Clusters.kml": {
       "checksum": "d92cff69cdace51bfff7faf8a83550dd"
@@ -3516,6 +3516,9 @@
     },
     "cluster_data/ZambiaZambia_Clusters.shx": {
       "checksum": "c8b8f1595d53d4f0265417039a822cb3"
+    },
+    "credentials/humphrey-universal-c15e72d817f0.json": {
+      "checksum": "dca40d732ddc3bb92a29f2b6cc7cd223"
     },
     "gadm_data/Angola Updated gadm.dbf": {
       "checksum": "d3ac2937851df25b37c5902073fbe676"
@@ -3708,6 +3711,9 @@
     },
     "gadm_data/gadm41_ZMB_2.shx": {
       "checksum": "a5192a32c92cffaeff3d6678eeda58af"
+    },
+    "humphrey-universal-c15e72d817f0.json": {
+      "checksum": "dca40d732ddc3bb92a29f2b6cc7cd223"
     },
     "README.md": {
       "checksum": "345eee933a65165a48e2028064789e94"
