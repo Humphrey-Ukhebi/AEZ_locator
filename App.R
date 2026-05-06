@@ -10,6 +10,22 @@ SHEET_NAME <- "session_logs"
 #  Option A │ Interactive / local use: comment the line below out.
 #            │ The browser will open for OAuth on first run; token cached after.
 #  Option B │ Deployed app: supply your service-account JSON file path.
+@@ -6,11 +6,21 @@
+  SHEET_ID   <- "1l8SWu-LqcCFq6j_ypLk6LYu-kI1mHFv3xmwk4fF45ik"
+SHEET_NAME <- "session_logs"
+
+-# Authentication — choose ONE option:
+  -#  Option A │ Interactive / local use: comment the line below out.
+  -#            │ The browser will open for OAuth on first run; token cached after.
+  -#  Option B │ Deployed app: supply your service-account JSON file path.
+  -gs4_auth(path = Sys.getenv("humphrey-universal-c15e72d817f0.json"))
++# Authentication strategy (evaluated in priority order at startup):
+  +#  1. Connect Cloud / server  →  set env var GS_SERVICE_ACCOUNT to the full
+  +#                                contents of the service-account JSON file.
+  +#  2. Local with JSON present →  uses the JSON file directly.
+  +#  3. Local interactive       →  falls back to a cached OAuth token.
+
+
 gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
 # ──────────────────────────────────────────────────────────────────────────────
 
