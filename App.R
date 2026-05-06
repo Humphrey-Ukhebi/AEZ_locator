@@ -1,5 +1,5 @@
 
-pacman::p_load(shiny, leaflet, sf, dplyr, shinyjs, rclipboard, rmapshaper, googlesheets4)
+pacman::p_load(shiny, leaflet, sf, dplyr, shinyjs, rclipboard, rmapshaper, googlesheets4, base64enc)
 
 
 # ─── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
@@ -7,20 +7,31 @@ SHEET_ID      <- "1l8SWu-LqcCFq6j_ypLk6LYu-kI1mHFv3xmwk4fF45ik"
 SHEET_NAME    <- "session_logs"
 LOGGING_ACTIVE <- FALSE   # set to TRUE once auth succeeds below
 
-local({
-  json_env <- Sys.getenv("GS_SERVICE_ACCOUNT", unset = "")
 
+local({
   result <- tryCatch({
-    if (nchar(json_env) > 0) {
-      # Connect Cloud: gargle accepts a raw JSON string directly — no temp file needed
-      gs4_auth(path = json_env)
+
+    b64 <- Sys.getenv("GS_SERVICE_ACCOUNT_B64", unset = "")
+
+    if (nchar(b64) > 0) {
+      # ── Connect Cloud path ──────────────────────────────────────────────────
+      # Decode the base64 string → write to a temp file → authenticate.
+      # Base64 encoding avoids any newline / escape-sequence corruption that
+      # happens when raw JSON is pasted into an env-var field.
+      tmp <- tempfile(fileext = ".json")
+      writeBin(base64enc::base64decode(b64), tmp)
+      gs4_auth(path = tmp)
+
     } else if (file.exists("humphrey-universal-c15e72d817f0.json")) {
-      # Local development: use the JSON file
+      # ── Local development path ──────────────────────────────────────────────
       gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
+
     } else {
-      stop("No credentials found")
+      stop("No credentials found — set GS_SERVICE_ACCOUNT_B64 on Connect Cloud.")
     }
+
     TRUE
+
   }, error = function(e) {
     message("[AUTH] Google Sheets auth failed: ", e$message,
             "\nSession logging will be skipped.")
