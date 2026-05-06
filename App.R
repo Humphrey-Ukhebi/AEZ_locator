@@ -5,8 +5,17 @@ pacman::p_load(shiny, leaflet, sf, dplyr, shinyjs, rclipboard, rmapshaper, googl
 # ─── GOOGLE SHEETS CONFIG ─────────────────────────────────────────────────────
 SHEET_ID   <- "1l8SWu-LqcCFq6j_ypLk6LYu-kI1mHFv3xmwk4fF45ik"
 SHEET_NAME <- "session_logs"
-
-gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
+local({
+  json_env <- Sys.getenv("GOOGLE_CREDENTIALS_JSON", unset = "")
+  if (nchar(json_env) > 0) {
+    tmp <- tempfile(fileext = ".json")
+    writeLines(json_env, tmp)
+    gs4_auth(path = tmp)
+  } else if (file.exists("humphrey-universal-c15e72d817f0.json")) {
+    gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
+  }
+})
+#gs4_auth(path = "humphrey-universal-c15e72d817f0.json")
 # ──────────────────────────────────────────────────────────────────────────────
 
 
