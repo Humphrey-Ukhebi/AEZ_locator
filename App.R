@@ -382,7 +382,7 @@ server <- function(input, output, session) {
         as.character(df[[cn]][1])
       }
       
-      v_country  <- get_v(res_adm,  "NAME_0")
+      v_country  <- get_v(res_adm,  "COUNTRY")
       v_province <- get_v(res_adm,  "NAME_1")
       v_district <- get_v(res_adm,  "NAME_2")
       v_ward     <- get_v(res_adm,  "NAME_3")
@@ -393,7 +393,7 @@ server <- function(input, output, session) {
       
       result_df <- data.frame(
         Metric = c(
-          "Country (NAME_0)", "Province (NAME_1)", "District (NAME_2)", "Ward (NAME_3)",
+          "Country (COUNTRY)", "Province (NAME_1)", "District (NAME_2)", "Ward (NAME_3)",
           "Detected AEZ", "Target AEZ", "Distance to Target",
           "Neighboring AEZs", "Neighboring Wards",
           "---",
