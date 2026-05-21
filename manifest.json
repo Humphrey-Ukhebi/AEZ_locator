@@ -186,38 +186,6 @@
         "RemoteSha": "1.1.1-1.1"
       }
     },
-    "V8": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "V8",
-        "Type": "Package",
-        "Title": "Embedded JavaScript and WebAssembly Engine for R",
-        "Version": "8.2.0",
-        "Authors@R": "c(\n    person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n      comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"George\", \"Stagg\", role = \"ctb\", comment = c(ORCID = \"0009-0006-3173-9846\")),\n    person(\"Jan Marvin\", \"Garbuszus\", role = \"ctb\"))",
-        "Description": "An R interface to V8 <https://v8.dev>: Google's open source JavaScript\n    and WebAssembly engine. This package can be compiled either with V8 or NodeJS \n    when built as a shared library.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://jeroen.r-universe.dev/V8",
-        "BugReports": "https://github.com/jeroen/v8/issues",
-        "SystemRequirements": "On Linux you can build against libv8-dev (Debian)\nor v8-devel (Fedora). We also provide static libv8 binaries for\nmost platforms, see the README for details.",
-        "NeedsCompilation": "yes",
-        "VignetteBuilder": "knitr",
-        "Imports": "Rcpp (>= 0.12.12), jsonlite (>= 1.0), curl (>= 1.0), utils",
-        "LinkingTo": "Rcpp",
-        "Suggests": "testthat, knitr, rmarkdown",
-        "RoxygenNote": "7.3.1",
-        "Language": "en-US",
-        "Encoding": "UTF-8",
-        "Biarch": "true",
-        "Packaged": "2026-04-19 11:38:23 UTC; jeroen",
-        "Author": "Jeroen Ooms [aut, cre] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  George Stagg [ctb] (ORCID: <https://orcid.org/0009-0006-3173-9846>),\n  Jan Marvin Garbuszus [ctb]",
-        "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-04-21 05:10:34 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 13:16:43 UTC; windows",
-        "Archs": "x64"
-      }
-    },
     "askpass": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -278,66 +246,6 @@
         "RemoteRef": "base64enc",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteSha": "0.1-6"
-      }
-    },
-    "bit": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "bit",
-        "Title": "Classes and Methods for Fast Memory-Efficient Boolean Selections",
-        "Version": "4.6.0",
-        "Authors@R": "c(\n    person(\"Michael\", \"Chirico\", email = \"MichaelChirico4@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Jens\", \"Oehlschlägel\", role = \"aut\"),\n    person(\"Brian\", \"Ripley\", role = \"ctb\")\n  )",
-        "Depends": "R (>= 3.4.0)",
-        "Suggests": "testthat (>= 3.0.0), roxygen2, knitr, markdown, rmarkdown,\nmicrobenchmark, bit64 (>= 4.0.0), ff (>= 4.0.0)",
-        "Description": "Provided are classes for boolean and skewed boolean vectors,\n    fast boolean methods, fast unique and non-unique integer sorting,\n    fast set operations on sorted and unsorted sets of integers, and\n    foundations for ff (range index, compression, chunked processing).",
-        "License": "GPL-2 | GPL-3",
-        "LazyLoad": "yes",
-        "ByteCompile": "yes",
-        "Encoding": "UTF-8",
-        "URL": "https://github.com/r-lib/bit",
-        "VignetteBuilder": "knitr, rmarkdown",
-        "RoxygenNote": "7.3.2",
-        "Config/testthat/edition": "3",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-03-05 07:18:45 UTC; michael",
-        "Author": "Michael Chirico [aut, cre],\n  Jens Oehlschlägel [aut],\n  Brian Ripley [ctb]",
-        "Maintainer": "Michael Chirico <MichaelChirico4@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-03-06 10:50:01 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 13:11:04 UTC; windows",
-        "Archs": "x64"
-      }
-    },
-    "bit64": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "bit64",
-        "Title": "A S3 Class for Vectors of 64bit Integers",
-        "Version": "4.8.0",
-        "Authors@R": "c(\n    person(\"Michael\", \"Chirico\", email=\"michaelchirico4@gmail.com\", role=c(\"aut\", \"cre\")),\n    person(\"Jens\", \"Oehlschlägel\", role=\"aut\"),\n    person(\"Leonardo\", \"Silvestri\", role=\"ctb\"),\n    person(\"Ofek\", \"Shilon\", role=\"ctb\"),\n    person(\"Christian\", \"Ullerich\", role=\"ctb\")\n  )",
-        "Depends": "R (>= 3.5.0)",
-        "Description": "\n  Package 'bit64' provides serializable S3 atomic 64bit (signed) integers.\n  These are useful for handling database keys and exact counting in +-2^63.\n  WARNING: do not use them as replacement for 32bit integers, integer64 are not\n  supported for subscripting by R-core and they have different semantics when\n  combined with double, e.g. integer64 + double => integer64.\n  Class integer64 can be used in vectors, matrices, arrays and data.frames.\n  Methods are available for coercion from and to logicals, integers, doubles,\n  characters and factors as well as many elementwise and summary functions.\n  Many fast algorithmic operations such as 'match' and 'order' support inter-\n  active data exploration and manipulation and optionally leverage caching.",
-        "License": "GPL-2 | GPL-3",
-        "LazyLoad": "yes",
-        "ByteCompile": "yes",
-        "URL": "https://github.com/r-lib/bit64, https://bit64.r-lib.org",
-        "Encoding": "UTF-8",
-        "Imports": "bit (>= 4.0.0), graphics, methods, stats, utils",
-        "Suggests": "patrick (>= 0.3.0), testthat (>= 3.3.0), withr",
-        "Config/testthat/edition": "3",
-        "Config/Needs/development": "patrick, testthat",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "RoxygenNote": "7.3.3",
-        "NeedsCompilation": "yes",
-        "Packaged": "2026-04-20 06:52:55 UTC; michael",
-        "Author": "Michael Chirico [aut, cre],\n  Jens Oehlschlägel [aut],\n  Leonardo Silvestri [ctb],\n  Ofek Shilon [ctb],\n  Christian Ullerich [ctb]",
-        "Maintainer": "Michael Chirico <michaelchirico4@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-04-21 06:10:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 14:24:51 UTC; windows",
-        "Archs": "x64"
       }
     },
     "bslib": {
@@ -528,35 +436,6 @@
         "RemoteSha": "3.6.6"
       }
     },
-    "clipr": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Type": "Package",
-        "Package": "clipr",
-        "Title": "Read and Write from the System Clipboard",
-        "Version": "0.8.0",
-        "Authors@R": "c(\n    person(\"Matthew\", \"Lincoln\", , \"matthew.d.lincoln@gmail.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-4387-3384\")),\n    person(\"Louis\", \"Maddox\", role = \"ctb\"),\n    person(\"Steve\", \"Simpson\", role = \"ctb\"),\n    person(\"Jennifer\", \"Bryan\", role = \"ctb\")\n  )",
-        "Description": "Simple utility functions to read from and write to\n    the Windows, OS X, and X11 clipboards.",
-        "License": "GPL-3",
-        "URL": "https://github.com/mdlincoln/clipr,\nhttp://matthewlincoln.net/clipr/",
-        "BugReports": "https://github.com/mdlincoln/clipr/issues",
-        "Imports": "utils",
-        "Suggests": "covr, knitr, rmarkdown, rstudioapi (>= 0.5), testthat (>=\n2.0.0)",
-        "VignetteBuilder": "knitr",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "RoxygenNote": "7.1.2",
-        "SystemRequirements": "xclip (https://github.com/astrand/xclip) or xsel\n(http://www.vergenet.net/~conrad/software/xsel/) for accessing\nthe X11 clipboard, or wl-clipboard\n(https://github.com/bugaevc/wl-clipboard) for systems using\nWayland.",
-        "NeedsCompilation": "no",
-        "Packaged": "2022-02-19 02:20:21 UTC; mlincoln",
-        "Author": "Matthew Lincoln [aut, cre] (<https://orcid.org/0000-0002-4387-3384>),\n  Louis Maddox [ctb],\n  Steve Simpson [ctb],\n  Jennifer Bryan [ctb]",
-        "Maintainer": "Matthew Lincoln <matthew.d.lincoln@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2022-02-22 00:58:45 UTC",
-        "Built": "R 4.6.0; ; 2026-04-25 13:11:03 UTC; windows"
-      }
-    },
     "commonmark": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -587,67 +466,6 @@
         "RemoteRef": "commonmark",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteSha": "2.0.0"
-      }
-    },
-    "cpp11": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "cpp11",
-        "Title": "A C++11 Interface for R's C Interface",
-        "Version": "0.5.4",
-        "Authors@R": "\n    c(\n      person(\"Davis\", \"Vaughan\", email = \"davis@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-4777-038X\")),\n      person(\"Jim\",\"Hester\", role = \"aut\", comment = c(ORCID = \"0000-0002-2739-7082\")),\n      person(\"Romain\", \"François\", role = \"aut\", comment = c(ORCID = \"0000-0002-2444-4226\")),\n      person(\"Benjamin\", \"Kietzman\", role = \"ctb\"),\n      person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
-        "Description": "Provides a header only, C++11 interface to R's C\n    interface.  Compared to other approaches 'cpp11' strives to be safe\n    against long jumps from the C API as well as C++ exceptions, conform\n    to normal R function semantics and supports interaction with 'ALTREP'\n    vectors.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://cpp11.r-lib.org, https://github.com/r-lib/cpp11",
-        "BugReports": "https://github.com/r-lib/cpp11/issues",
-        "Depends": "R (>= 4.0.0)",
-        "Suggests": "bench, brio, callr, cli, covr, decor, desc, ggplot2, glue,\nknitr, lobstr, mockery, progress, rmarkdown, scales, Rcpp,\ntestthat (>= 3.2.0), tibble, utils, vctrs, withr",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Config/Needs/cpp11/cpp_register": "brio, cli, decor, desc, glue, tibble,\nvctrs",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3",
-        "NeedsCompilation": "no",
-        "Packaged": "2026-04-03 18:50:48 UTC; davis",
-        "Author": "Davis Vaughan [aut, cre] (ORCID:\n    <https://orcid.org/0000-0003-4777-038X>),\n  Jim Hester [aut] (ORCID: <https://orcid.org/0000-0002-2739-7082>),\n  Romain François [aut] (ORCID: <https://orcid.org/0000-0002-2444-4226>),\n  Benjamin Kietzman [ctb],\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Davis Vaughan <davis@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-04-04 05:11:17 UTC",
-        "Built": "R 4.6.0; ; 2026-04-25 13:11:00 UTC; windows"
-      }
-    },
-    "crayon": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "crayon",
-        "Title": "Colored Terminal Output",
-        "Version": "1.5.3",
-        "Authors@R": "c(\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Brodie\", \"Gaslam\", , \"brodie.gaslam@yahoo.com\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "The crayon package is now superseded. Please use the 'cli'\n    package for new projects.  Colored terminal output on terminals that\n    support 'ANSI' color and highlight codes. It also works in 'Emacs'\n    'ESS'. 'ANSI' color support is automatically detected. Colors and\n    highlighting can be combined and nested. New styles can also be\n    created easily.  This package was inspired by the 'chalk' 'JavaScript'\n    project.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://r-lib.github.io/crayon/, https://github.com/r-lib/crayon",
-        "BugReports": "https://github.com/r-lib/crayon/issues",
-        "Imports": "grDevices, methods, utils",
-        "Suggests": "mockery, rstudioapi, testthat, withr",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.1",
-        "Collate": "'aaa-rstudio-detect.R' 'aaaa-rematch2.R'\n'aab-num-ansi-colors.R' 'aac-num-ansi-colors.R' 'ansi-256.R'\n'ansi-palette.R' 'combine.R' 'string.R' 'utils.R'\n'crayon-package.R' 'disposable.R' 'enc-utils.R' 'has_ansi.R'\n'has_color.R' 'link.R' 'styles.R' 'machinery.R' 'parts.R'\n'print.R' 'style-var.R' 'show.R' 'string_operations.R'",
-        "NeedsCompilation": "no",
-        "Packaged": "2024-06-20 11:49:08 UTC; gaborcsardi",
-        "Author": "Gábor Csárdi [aut, cre],\n  Brodie Gaslam [ctb],\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2024-06-20 13:00:02 UTC",
-        "Built": "R 4.6.0; ; 2026-04-25 13:11:04 UTC; windows",
-        "RemoteType": "standard",
-        "RemotePkgRef": "crayon",
-        "RemoteRef": "crayon",
-        "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteSha": "1.5.3"
       }
     },
     "crosstalk": {
@@ -1027,68 +845,6 @@
         "Built": "R 4.6.0; ; 2026-04-25 13:10:58 UTC; windows"
       }
     },
-    "geojsonsf": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "geojsonsf",
-        "Type": "Package",
-        "Title": "GeoJSON to Simple Feature Converter",
-        "Version": "2.0.5",
-        "Date": "2025-11-25",
-        "Authors@R": "c(\n    person(\"David\", \"Cooley\", ,\"dcooley@symbolix.com.au\", role = c(\"aut\", \"cre\")),\n    person(\"Andy\", \"Teucher\", ,\"andy.teucher@gmail.com\", role = \"ctb\")\n    )",
-        "Description": "Converts Between GeoJSON and simple feature objects. ",
-        "License": "MIT + file LICENSE",
-        "URL": "https://github.com/SymbolixAU/geojsonsf",
-        "BugReports": "https://github.com/SymbolixAU/geojsonsf/issues",
-        "Encoding": "UTF-8",
-        "LazyData": "true",
-        "Depends": "R (>= 4.0.0)",
-        "Imports": "Rcpp (>= 1.1.0)",
-        "LinkingTo": "geometries (>= 0.2.5), jsonify (>= 1.2.3), rapidjsonr (>=\n1.2.1), Rcpp, sfheaders (>= 0.4.5)",
-        "RoxygenNote": "7.3.3",
-        "Suggests": "covr, jsonify, knitr, rmarkdown, tinytest",
-        "VignetteBuilder": "knitr",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-11-26 08:50:31 UTC; david",
-        "Author": "David Cooley [aut, cre],\n  Andy Teucher [ctb]",
-        "Maintainer": "David Cooley <dcooley@symbolix.com.au>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-11-26 10:00:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 14:33:42 UTC; windows",
-        "Archs": "x64"
-      }
-    },
-    "geometries": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "geometries",
-        "Type": "Package",
-        "Title": "Convert Between R Objects and Geometric Structures",
-        "Date": "2025-11-23",
-        "Version": "0.2.5",
-        "Authors@R": "c(\n    person(\"David\", \"Cooley\", ,\"david.cooley.au@gmail.com\", role = c(\"aut\", \"cre\"))\n    )",
-        "Description": "Geometry shapes in 'R' are typically represented by matrices (points, lines), with more complex \n  shapes being lists of matrices (polygons). 'Geometries' will convert various 'R' objects into these shapes. \n  Conversion functions are available at both the 'R' level, and through 'Rcpp'.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://dcooley.github.io/geometries/",
-        "BugReports": "https://github.com/dcooley/geometries/issues",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.2.3",
-        "LinkingTo": "Rcpp",
-        "Imports": "Rcpp (>= 1.1.0)",
-        "Suggests": "covr, knitr, rmarkdown, tinytest",
-        "VignetteBuilder": "knitr",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-11-23 16:09:52 UTC; david",
-        "Author": "David Cooley [aut, cre]",
-        "Maintainer": "David Cooley <david.cooley.au@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-11-23 16:30:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 13:14:00 UTC; windows",
-        "Archs": "x64"
-      }
-    },
     "glue": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -1227,34 +983,6 @@
         "RemoteRef": "highr",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteSha": "0.12"
-      }
-    },
-    "hms": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "hms",
-        "Title": "Pretty Time of Day",
-        "Date": "2025-10-11",
-        "Version": "1.1.4",
-        "Authors@R": "c(\n    person(\"Kirill\", \"Müller\", , \"kirill@cynkra.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-1416-3412\")),\n    person(\"R Consortium\", role = \"fnd\"),\n    person(\"Posit Software, PBC\", role = \"fnd\",\n           comment = c(ROR = \"03wc8by49\"))\n  )",
-        "Description": "Implements an S3 class for storing and formatting time-of-day\n    values, based on the 'difftime' class.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://hms.tidyverse.org/, https://github.com/tidyverse/hms",
-        "BugReports": "https://github.com/tidyverse/hms/issues",
-        "Imports": "cli, lifecycle, methods, pkgconfig, rlang (>= 1.0.2), vctrs\n(>= 0.3.8)",
-        "Suggests": "crayon, lubridate, pillar (>= 1.1.0), testthat (>= 3.0.0)",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3.9000",
-        "NeedsCompilation": "no",
-        "Packaged": "2025-10-16 19:10:16 UTC; kirill",
-        "Author": "Kirill Müller [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-1416-3412>),\n  R Consortium [fnd],\n  Posit Software, PBC [fnd] (ROR: <https://ror.org/03wc8by49>)",
-        "Maintainer": "Kirill Müller <kirill@cynkra.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-10-17 05:10:11 UTC",
-        "Built": "R 4.6.0; ; 2026-04-25 14:49:25 UTC; windows"
       }
     },
     "htmltools": {
@@ -1451,36 +1179,6 @@
         "RemoteRef": "jquerylib",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteSha": "0.1.4"
-      }
-    },
-    "jsonify": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "jsonify",
-        "Type": "Package",
-        "Title": "Convert Between 'R' Objects and Javascript Object Notation\n(JSON)",
-        "Version": "1.2.3",
-        "Date": "2025-11-24",
-        "Authors@R": "c(\n    person(\"David\", \"Cooley\", ,\"dcooley@symbolix.com.au\", role = c(\"aut\", \"cre\")),\n    person(\"Chris\", \"Muir\", role = \"ctb\"),\n    person(\"Brendan\", \"Knapp\", role = \"ctb\", comment = c(ORCID = \"0000-0003-3284-4972\"))\n    )",
-        "Description": "Conversions between 'R' objects and Javascript Object Notation (JSON) using \n    the 'rapidjsonr' library <https://CRAN.R-project.org/package=rapidjsonr>. ",
-        "License": "MIT + file LICENSE",
-        "Depends": "R (>= 4.0.0)",
-        "Imports": "Rcpp (>= 1.1.0)",
-        "LinkingTo": "rapidjsonr (>= 1.2.1), Rcpp",
-        "RoxygenNote": "7.3.2",
-        "Suggests": "covr, testthat, knitr, rmarkdown",
-        "Encoding": "UTF-8",
-        "URL": "https://symbolixau.github.io/jsonify/,\nhttps://github.com/SymbolixAU/jsonify",
-        "BugReports": "https://github.com/SymbolixAU/jsonify/issues",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-11-24 13:03:46 UTC; david",
-        "Author": "David Cooley [aut, cre],\n  Chris Muir [ctb],\n  Brendan Knapp [ctb] (ORCID: <https://orcid.org/0000-0003-3284-4972>)",
-        "Maintainer": "David Cooley <dcooley@symbolix.com.au>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-11-25 19:22:12 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 13:14:00 UTC; windows",
-        "Archs": "x64"
       }
     },
     "jsonlite": {
@@ -2037,59 +1735,6 @@
         "Archs": "x64"
       }
     },
-    "prettyunits": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "prettyunits",
-        "Title": "Pretty, Human Readable Formatting of Quantities",
-        "Version": "1.2.0",
-        "Authors@R": "c(\n  person(\"Gabor\", \"Csardi\", email=\"csardi.gabor@gmail.com\", role=c(\"aut\", \"cre\")),\n  person(\"Bill\", \"Denney\", email=\"wdenney@humanpredictions.com\", role=c(\"ctb\"), comment=c(ORCID=\"0000-0002-5759-428X\")),\n  person(\"Christophe\", \"Regouby\", email=\"christophe.regouby@free.fr\", role=c(\"ctb\"))\n  )",
-        "Description": "Pretty, human readable formatting of quantities.\n    Time intervals: '1337000' -> '15d 11h 23m 20s'.\n    Vague time intervals: '2674000' -> 'about a month ago'.\n    Bytes: '1337' -> '1.34 kB'.\n    Rounding: '99' with 3 significant digits -> '99.0'\n    p-values: '0.00001' -> '<0.0001'.\n    Colors: '#FF0000' -> 'red'.\n    Quantities: '1239437' -> '1.24 M'.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://github.com/r-lib/prettyunits",
-        "BugReports": "https://github.com/r-lib/prettyunits/issues",
-        "Depends": "R(>= 2.10)",
-        "Suggests": "codetools, covr, testthat",
-        "RoxygenNote": "7.2.3",
-        "Encoding": "UTF-8",
-        "NeedsCompilation": "no",
-        "Packaged": "2023-09-24 10:53:19 UTC; gaborcsardi",
-        "Author": "Gabor Csardi [aut, cre],\n  Bill Denney [ctb] (<https://orcid.org/0000-0002-5759-428X>),\n  Christophe Regouby [ctb]",
-        "Maintainer": "Gabor Csardi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-09-24 21:10:02 UTC",
-        "Built": "R 4.6.0; ; 2026-04-25 13:11:04 UTC; windows"
-      }
-    },
-    "progress": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "progress",
-        "Title": "Terminal Progress Bars",
-        "Version": "1.2.3",
-        "Authors@R": "c(\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Rich\", \"FitzJohn\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "Configurable Progress bars, they may include percentage,\n    elapsed time, and/or the estimated completion time. They work in\n    terminals, in 'Emacs' 'ESS', 'RStudio', 'Windows' 'Rgui' and the\n    'macOS' 'R.app'. The package also provides a 'C++' 'API', that works\n    with or without 'Rcpp'.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://github.com/r-lib/progress#readme,\nhttp://r-lib.github.io/progress/",
-        "BugReports": "https://github.com/r-lib/progress/issues",
-        "Depends": "R (>= 3.6)",
-        "Imports": "crayon, hms, prettyunits, R6",
-        "Suggests": "Rcpp, testthat (>= 3.0.0), withr",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.2.3",
-        "NeedsCompilation": "no",
-        "Packaged": "2023-12-05 09:33:10 UTC; gaborcsardi",
-        "Author": "Gábor Csárdi [aut, cre],\n  Rich FitzJohn [aut],\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-12-06 10:30:02 UTC",
-        "Built": "R 4.6.0; ; 2026-04-25 15:11:01 UTC; windows"
-      }
-    },
     "promises": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -2186,30 +1831,6 @@
         "Archs": "x64"
       }
     },
-    "rapidjsonr": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "rapidjsonr",
-        "Type": "Package",
-        "Title": "'Rapidjson' C++ Header Files",
-        "Version": "1.2.1",
-        "Date": "2025-11-23",
-        "Authors@R": "c(\n    person(\"David\", \"Cooley\", ,\"dcooley@symbolix.com.au\", role = c(\"aut\", \"cre\")),\n    person(\"Milo\", \"Yip\", , role = \"ctb\", comment = \"Author of c++ rapidjson library, provided through THL A29 Limited, a Tencent company\"),\n    person(\"Alexander\", \"Chemeris\", role = \"ctb\", comment = \"Author of c++ msinttypes library\")\n    )",
-        "Description": "Provides JSON parsing capability through the 'Rapidjson' 'C++' header-only library. ",
-        "License": "MIT + file LICENSE",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.1",
-        "SystemRequirements": "GNU make",
-        "NeedsCompilation": "no",
-        "Packaged": "2025-11-23 16:12:43 UTC; david",
-        "Author": "David Cooley [aut, cre],\n  Milo Yip [ctb] (Author of c++ rapidjson library, provided through THL\n    A29 Limited, a Tencent company),\n  Alexander Chemeris [ctb] (Author of c++ msinttypes library)",
-        "Maintainer": "David Cooley <dcooley@symbolix.com.au>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-11-24 08:50:07 UTC",
-        "Built": "R 4.6.0; ; 2026-04-21 00:47:39 UTC; windows"
-      }
-    },
     "rappdirs": {
       "Source": "CRAN",
       "Repository": "https://cran.rstudio.com",
@@ -2295,40 +1916,6 @@
         "Repository": "CRAN",
         "Date/Publication": "2023-11-15 10:00:02 UTC",
         "Built": "R 4.6.0; ; 2026-04-25 15:17:50 UTC; windows"
-      }
-    },
-    "readr": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "readr",
-        "Title": "Read Rectangular Text Data",
-        "Version": "2.2.0",
-        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"),\n    person(\"Jim\", \"Hester\", role = \"aut\"),\n    person(\"Romain\", \"Francois\", role = \"ctb\"),\n    person(\"Jennifer\", \"Bryan\", , \"jenny@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-6983-2759\")),\n    person(\"Shelby\", \"Bearrows\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"03wc8by49\")),\n    person(\"https://github.com/mandreyel/\", role = \"cph\",\n           comment = \"mio library\"),\n    person(\"Jukka\", \"Jylänki\", role = c(\"ctb\", \"cph\"),\n           comment = \"grisu3 implementation\"),\n    person(\"Mikkel\", \"Jørgensen\", role = c(\"ctb\", \"cph\"),\n           comment = \"grisu3 implementation\")\n  )",
-        "Description": "The goal of 'readr' is to provide a fast and friendly way to\n    read rectangular data (like 'csv', 'tsv', and 'fwf').  It is designed\n    to flexibly parse many types of data found in the wild, while still\n    cleanly failing when data unexpectedly changes.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://readr.tidyverse.org, https://github.com/tidyverse/readr",
-        "BugReports": "https://github.com/tidyverse/readr/issues",
-        "Depends": "R (>= 4.1)",
-        "Imports": "cli, clipr, crayon, glue, hms (>= 0.4.1), lifecycle, methods,\nR6, rlang, tibble, utils, vroom (>= 1.7.0), withr",
-        "Suggests": "covr, curl, datasets, knitr, rmarkdown, spelling, stringi,\ntestthat (>= 3.2.0), tzdb (>= 0.1.1), waldo, xml2",
-        "LinkingTo": "cpp11, tzdb (>= 0.1.1)",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "tidyverse, tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Config/testthat/parallel": "false",
-        "Config/usethis/last-upkeep": "2025-11-14",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "RoxygenNote": "7.3.3",
-        "NeedsCompilation": "yes",
-        "Packaged": "2026-02-19 07:07:31 UTC; jenny",
-        "Author": "Hadley Wickham [aut],\n  Jim Hester [aut],\n  Romain Francois [ctb],\n  Jennifer Bryan [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-6983-2759>),\n  Shelby Bearrows [ctb],\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>),\n  https://github.com/mandreyel/ [cph] (mio library),\n  Jukka Jylänki [ctb, cph] (grisu3 implementation),\n  Mikkel Jørgensen [ctb, cph] (grisu3 implementation)",
-        "Maintainer": "Jennifer Bryan <jenny@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-02-19 18:10:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 15:46:52 UTC; windows",
-        "Archs": "x64"
       }
     },
     "rematch": {
@@ -2456,35 +2043,6 @@
         "RemoteRef": "rlang",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteSha": "1.2.0"
-      }
-    },
-    "rmapshaper": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Type": "Package",
-        "Package": "rmapshaper",
-        "Title": "Client for 'mapshaper' for 'Geospatial' Operations",
-        "Version": "0.6.0",
-        "Authors@R": "\n    c(person(given = \"Andy\",\n             family = \"Teucher\",\n             role = c(\"aut\", \"cre\"),\n             comment = c(ORCID = \"0000-0002-7840-692X\"),\n             email = \"andy.teucher@gmail.com\"),\n      person(given = \"Kenton\",\n             family = \"Russell\",\n             role = \"aut\",\n             email = \"kent.russell@timelyportfolio.com\",\n             comment = \"JavaScript support\"),\n      person(given = \"Matthew\",\n             family = \"Bloch\",\n             role = \"cph\",\n             comment = \"mapshaper Javascript library\"))",
-        "Description": "Edit and simplify 'geojson', 'Spatial', and 'sf'\n    objects.  This is wrapper around the 'mapshaper' 'JavaScript' library\n    by Matthew Bloch <https://github.com/mbloch/mapshaper/> to perform\n    topologically-aware polygon simplification, as well as other\n    operations such as clipping, erasing, dissolving, and converting\n    'multi-part' to 'single-part' geometries.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://github.com/ateucher/rmapshaper,\nhttp://andyteucher.ca/rmapshaper/",
-        "BugReports": "https://github.com/ateucher/rmapshaper/issues",
-        "Imports": "methods, geojsonsf (>= 2.0.5), jsonify (>= 1.2.3), readr (>=\n2.1.0), sf (>= 1.0.0), sp (>= 1.4-0), V8 (>= 6.0.0)",
-        "Suggests": "knitr, magrittr, rmarkdown, testthat (>= 3.0.0), jsonlite,\ncovr, units, withr",
-        "VignetteBuilder": "knitr",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3",
-        "Config/testthat/edition": "3",
-        "Config/testthat/parallel": "TRUE",
-        "NeedsCompilation": "no",
-        "Packaged": "2025-12-04 00:45:55 UTC; andy",
-        "Author": "Andy Teucher [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-7840-692X>),\n  Kenton Russell [aut] (JavaScript support),\n  Matthew Bloch [cph] (mapshaper Javascript library)",
-        "Maintainer": "Andy Teucher <andy.teucher@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-12-04 12:50:08 UTC",
-        "Built": "R 4.6.0; ; 2026-04-25 15:54:29 UTC; windows"
       }
     },
     "rmarkdown": {
@@ -2624,62 +2182,37 @@
       "Repository": "https://cran.rstudio.com",
       "description": {
         "Package": "sf",
-        "Version": "1.1-0",
+        "Version": "1.1-1",
         "Title": "Simple Features for R",
-        "Authors@R": "\n    c(person(given = \"Edzer\",\n             family = \"Pebesma\",\n             role = c(\"aut\", \"cre\"),\n             email = \"edzer.pebesma@uni-muenster.de\",\n             comment = c(ORCID = \"0000-0001-8049-7069\")),\n      person(given = \"Roger\",\n             family = \"Bivand\",\n             role = \"ctb\",\n             comment = c(ORCID = \"0000-0003-2392-6140\")),\n      person(given = \"Etienne\",\n             family = \"Racine\",\n             role = \"ctb\"),\n      person(given = \"Michael\",\n             family = \"Sumner\",\n             role = \"ctb\"),\n      person(given = \"Ian\",\n             family = \"Cook\",\n             role = \"ctb\"),\n      person(given = \"Tim\",\n             family = \"Keitt\",\n             role = \"ctb\"),\n      person(given = \"Robin\",\n             family = \"Lovelace\",\n             role = \"ctb\"),\n      person(given = \"Hadley\",\n             family = \"Wickham\",\n             role = \"ctb\"),\n      person(given = \"Jeroen\",\n             family = \"Ooms\",\n             role = \"ctb\",\n             comment = c(ORCID = \"0000-0002-4035-0289\")),\n      person(given = \"Kirill\",\n             family = \"M\\u00fcller\",\n             role = \"ctb\"),\n      person(given = \"Thomas Lin\",\n             family = \"Pedersen\",\n             role = \"ctb\"),\n      person(given = \"Dan\",\n             family = \"Baston\",\n             role = \"ctb\"),\n      person(given = \"Dewey\",\n             family = \"Dunnington\",\n             role = \"ctb\",\n             comment = c(ORCID = \"0000-0002-9415-4582\"))\n\t\t\t )",
+        "Authors@R": "\n    c(person(given = \"Edzer\",\n             family = \"Pebesma\",\n             role = c(\"aut\", \"cre\"),\n             email = \"edzer.pebesma@uni-muenster.de\",\n             comment = c(ORCID = \"0000-0001-8049-7069\")),\n      person(given = \"Roger\",\n             family = \"Bivand\",\n             role = \"ctb\",\n             comment = c(ORCID = \"0000-0003-2392-6140\")),\n      person(given = \"Etienne\",\n             family = \"Racine\",\n             role = \"ctb\"),\n      person(given = \"Michael\",\n             family = \"Sumner\",\n             role = \"ctb\"),\n      person(given = \"Ian\",\n             family = \"Cook\",\n             role = \"ctb\"),\n      person(given = \"Tim\",\n             family = \"Keitt\",\n             role = \"ctb\"),\n      person(given = \"Robin\",\n             family = \"Lovelace\",\n             role = \"ctb\"),\n      person(given = \"Hadley\",\n             family = \"Wickham\",\n             role = \"ctb\"),\n      person(given = \"Jeroen\",\n             family = \"Ooms\",\n             role = \"ctb\",\n             comment = c(ORCID = \"0000-0002-4035-0289\")),\n      person(given = \"Kirill\",\n             family = \"M\\u00fcller\",\n             role = \"ctb\"),\n      person(given = \"Thomas Lin\",\n             family = \"Pedersen\",\n             role = \"ctb\"),\n      person(given = \"Dan\",\n             family = \"Baston\",\n             role = \"ctb\"),\n      person(given = \"Dewey\",\n             family = \"Dunnington\",\n             role = \"ctb\",\n             comment = c(ORCID = \"0000-0002-9415-4582\")),\n      person(given = \"Alexandre\",\n             family = \"Courtiol\",\n             role = \"ctb\",\n             comment = c(ORCID = \"0000-0003-0637-2959\"))\n\t\t\t )",
         "Description": "Support for simple feature access, a standardized way to\n    encode and analyze spatial vector data. Binds to 'GDAL' \n\t<doi:10.5281/zenodo.5884351> for reading and writing data, to 'GEOS'\n    <doi:10.5281/zenodo.11396894> for geometrical operations,\n    and to 'PROJ' <doi:10.5281/zenodo.5884394> for projection\n    conversions and datum transformations. Uses by default the 's2'\n    package for geometry operations on geodetic (long/lat degree)\n\tcoordinates.",
         "License": "GPL-2 | MIT + file LICENSE",
         "URL": "https://r-spatial.github.io/sf/, https://github.com/r-spatial/sf",
         "BugReports": "https://github.com/r-spatial/sf/issues",
-        "Depends": "methods, R (>= 3.3.0)",
-        "Imports": "classInt (>= 0.4-1), DBI (>= 0.8), graphics, grDevices, grid,\nmagrittr, s2 (>= 1.1.0), stats, tools, units (>= 0.7-0), utils",
+        "Depends": "methods, R (>= 4.1.0)",
+        "Imports": "classInt (>= 0.4-1), DBI (>= 0.8), graphics, grDevices, grid,\ns2 (>= 1.1.0), stats, tools, units (>= 0.7-0), utils",
         "Suggests": "blob, nanoarrow, covr, dplyr (>= 1.0.0), ggplot2, knitr,\nlwgeom (>= 0.2-14), maps, mapview, Matrix, microbenchmark,\nodbc, pbapply, pillar, pool, raster, rlang, rmarkdown,\nRPostgres (>= 1.1.0), RPostgreSQL, RSQLite, sp (>= 1.2-4),\nspatstat (>= 2.0-1), spatstat.geom, spatstat.random,\nspatstat.linnet, spatstat.utils, stars (>= 0.6-0), terra,\ntestthat (>= 3.0.0), tibble (>= 1.4.1), tidyr (>= 1.2.0),\ntidyselect (>= 1.0.0), tmap (>= 2.0), vctrs, wk (>= 0.9.0)",
         "LinkingTo": "Rcpp",
         "VignetteBuilder": "knitr",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3",
         "Config/testthat/edition": "2",
         "Config/needs/coverage": "XML",
         "SystemRequirements": "GDAL (>= 2.0.1), GEOS (>= 3.4.0), PROJ (>= 4.8.0),\nsqlite3",
         "Collate": "'RcppExports.R' 'init.R' 'import-standalone-s3-register.R'\n'crs.R' 'bbox.R' 'read.R' 'db.R' 'sfc.R' 'sfg.R' 'sf.R'\n'bind.R' 'wkb.R' 'wkt.R' 'plot.R' 'geom-measures.R'\n'geom-predicates.R' 'geom-transformers.R' 'transform.R'\n'proj.R' 'sp.R' 'grid.R' 'arith.R' 'tidyverse.R'\n'tidyverse-vctrs.R' 'cast_sfg.R' 'cast_sfc.R' 'graticule.R'\n'datasets.R' 'aggregate.R' 'agr.R' 'maps.R' 'join.R' 'sample.R'\n'valid.R' 'collection_extract.R' 'jitter.R' 'sgbp.R'\n'spatstat.R' 'stars.R' 'crop.R' 'gdal_utils.R' 'nearest.R'\n'normalize.R' 'sf-package.R' 'defunct.R' 'z_range.R'\n'm_range.R' 'shift_longitude.R' 'make_grid.R' 's2.R' 'terra.R'\n'geos-overlayng.R' 'break_antimeridian.R'",
+        "Config/roxygen2/version": "8.0.0",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-02-23 19:06:55 UTC; edzer",
-        "Author": "Edzer Pebesma [aut, cre] (ORCID:\n    <https://orcid.org/0000-0001-8049-7069>),\n  Roger Bivand [ctb] (ORCID: <https://orcid.org/0000-0003-2392-6140>),\n  Etienne Racine [ctb],\n  Michael Sumner [ctb],\n  Ian Cook [ctb],\n  Tim Keitt [ctb],\n  Robin Lovelace [ctb],\n  Hadley Wickham [ctb],\n  Jeroen Ooms [ctb] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Kirill Müller [ctb],\n  Thomas Lin Pedersen [ctb],\n  Dan Baston [ctb],\n  Dewey Dunnington [ctb] (ORCID: <https://orcid.org/0000-0002-9415-4582>)",
+        "Packaged": "2026-05-05 13:13:39 UTC; edzer",
+        "Author": "Edzer Pebesma [aut, cre] (ORCID:\n    <https://orcid.org/0000-0001-8049-7069>),\n  Roger Bivand [ctb] (ORCID: <https://orcid.org/0000-0003-2392-6140>),\n  Etienne Racine [ctb],\n  Michael Sumner [ctb],\n  Ian Cook [ctb],\n  Tim Keitt [ctb],\n  Robin Lovelace [ctb],\n  Hadley Wickham [ctb],\n  Jeroen Ooms [ctb] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Kirill Müller [ctb],\n  Thomas Lin Pedersen [ctb],\n  Dan Baston [ctb],\n  Dewey Dunnington [ctb] (ORCID: <https://orcid.org/0000-0002-9415-4582>),\n  Alexandre Courtiol [ctb] (ORCID:\n    <https://orcid.org/0000-0003-0637-2959>)",
         "Maintainer": "Edzer Pebesma <edzer.pebesma@uni-muenster.de>",
         "Repository": "CRAN",
-        "Date/Publication": "2026-02-24 07:50:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 14:49:42 UTC; windows",
-        "Archs": "x64"
-      }
-    },
-    "sfheaders": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "sfheaders",
-        "Type": "Package",
-        "Title": "Converts Between R Objects and Simple Feature Objects",
-        "Date": "2025-11-24",
-        "Version": "0.4.5",
-        "Authors@R": "c(\n    person(\"David\", \"Cooley\", ,\"david.cooley.au@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(given = \"Michael\", family = \"Sumner\", role = \"ctb\")\n    )",
-        "Description": "Converts between R and Simple Feature 'sf' objects, without depending\n  on the Simple Feature library. Conversion functions are available at both the R level, \n  and through 'Rcpp'.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://dcooley.github.io/sfheaders/",
-        "BugReports": "https://github.com/dcooley/sfheaders/issues",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
-        "Depends": "R (>= 3.0.2)",
-        "LinkingTo": "geometries (>= 0.2.5), Rcpp",
-        "Imports": "Rcpp (>= 1.1.0)",
-        "Suggests": "covr, knitr, testthat",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-11-24 13:15:04 UTC; david",
-        "Author": "David Cooley [aut, cre],\n  Michael Sumner [ctb]",
-        "Maintainer": "David Cooley <david.cooley.au@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-11-25 19:20:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 14:25:01 UTC; windows",
-        "Archs": "x64"
+        "Date/Publication": "2026-05-06 11:10:02 UTC",
+        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-05-10 23:51:42 UTC; windows",
+        "Archs": "x64",
+        "RemoteType": "standard",
+        "RemotePkgRef": "sf",
+        "RemoteRef": "sf",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "1.1-1"
       }
     },
     "shiny": {
@@ -2846,10 +2379,10 @@
         "Package": "terra",
         "Type": "Package",
         "Title": "Spatial Data Analysis",
-        "Version": "1.9-11",
-        "Date": "2026-03-25",
+        "Version": "1.9-27",
+        "Date": "2026-05-09",
         "Depends": "R (>= 3.5.0), methods",
-        "Suggests": "parallel, tinytest, ncdf4, sf (>= 0.9-8), deldir, XML,\nleaflet (>= 2.2.1), htmlwidgets",
+        "Suggests": "parallel, tinytest, ncdf4, sf (>= 0.9-8), deldir, XML,\nleaflet (>= 2.2.1), htmlwidgets, future, future.apply",
         "LinkingTo": "Rcpp",
         "Imports": "Rcpp (>= 1.0-10)",
         "SystemRequirements": "C++17, GDAL (>= 2.2.3), GEOS (>= 3.4.0), PROJ (>=\n4.9.3), TBB, sqlite3",
@@ -2861,19 +2394,19 @@
         "URL": "https://rspatial.org/, https://rspatial.github.io/terra/",
         "BugReports": "https://github.com/rspatial/terra/issues",
         "LazyLoad": "yes",
-        "Authors@R": "c(\n\tperson(\"Robert J.\", \"Hijmans\", role=c(\"cre\", \"aut\"),  \n\t\t\temail=\"r.hijmans@gmail.com\", comment=c(ORCID=\"0000-0001-5872-2872\")),\t\t\t\n    person(\"Andrew\", \"Brown\", role=\"aut\", comment=c(ORCID=\"0000-0002-4565-533X\")),\n    person(\"Márcia\", \"Barbosa\", role=\"aut\", comment=c(ORCID=\"0000-0001-8972-7713\")),\n    person(\"Roger\", \"Bivand\", role=\"ctb\", comment=c(ORCID=\"0000-0003-2392-6140\")),\n    person(\"Michael\", \"Chirico\", role=\"ctb\", comment=c(ORCID=\"0000-0003-0787-087X\")),\n    person(\"Emanuele\", \"Cordano\", role=\"ctb\",comment=c(ORCID=\"0000-0002-3508-5898\")),\n    person(\"Krzysztof\", \"Dyba\", role=\"ctb\", comment=c(ORCID=\"0000-0002-8614-3816\")),\n    person(\"Edzer\", \"Pebesma\", role=\"ctb\", comment=c(ORCID=\"0000-0001-8049-7069\")),\n    person(\"Barry\", \"Rowlingson\", role=\"ctb\", comment=c(ORCID=\"0000-0002-8586-6625\")),\n    person(\"Michael D.\", \"Sumner\", role=\"ctb\", comment=c(ORCID=\"0000-0002-2471-7511\")))",
+        "Authors@R": "c(\n\tperson(\"Robert J.\", \"Hijmans\", role=c(\"cre\", \"aut\"),  \n\t\t\temail=\"r.hijmans@gmail.com\", comment=c(ORCID=\"0000-0001-5872-2872\")),\t\t\t\n    person(\"Andrew\", \"Brown\", role=\"aut\", comment=c(ORCID=\"0000-0002-4565-533X\")),\n    person(\"Márcia\", \"Barbosa\", role=\"aut\", comment=c(ORCID=\"0000-0001-8972-7713\")),\n    person(\"Krzysztof\", \"Dyba\", role=\"ctb\", comment=c(ORCID=\"0000-0002-8614-3816\")),\n    person(\"Roger\", \"Bivand\", role=\"ctb\", comment=c(ORCID=\"0000-0003-2392-6140\")),\n    person(\"Michael\", \"Chirico\", role=\"ctb\", comment=c(ORCID=\"0000-0003-0787-087X\")),\n    person(\"Emanuele\", \"Cordano\", role=\"ctb\",comment=c(ORCID=\"0000-0002-3508-5898\")),\n    person(\"Edzer\", \"Pebesma\", role=\"ctb\", comment=c(ORCID=\"0000-0001-8049-7069\")),\n    person(\"Barry\", \"Rowlingson\", role=\"ctb\", comment=c(ORCID=\"0000-0002-8586-6625\")),\n    person(\"Michael D.\", \"Sumner\", role=\"ctb\", comment=c(ORCID=\"0000-0002-2471-7511\")))",
         "NeedsCompilation": "yes",
-        "Packaged": "2026-03-25 16:00:20 UTC; rhijm",
-        "Author": "Robert J. Hijmans [cre, aut] (ORCID:\n    <https://orcid.org/0000-0001-5872-2872>),\n  Andrew Brown [aut] (ORCID: <https://orcid.org/0000-0002-4565-533X>),\n  Márcia Barbosa [aut] (ORCID: <https://orcid.org/0000-0001-8972-7713>),\n  Roger Bivand [ctb] (ORCID: <https://orcid.org/0000-0003-2392-6140>),\n  Michael Chirico [ctb] (ORCID: <https://orcid.org/0000-0003-0787-087X>),\n  Emanuele Cordano [ctb] (ORCID: <https://orcid.org/0000-0002-3508-5898>),\n  Krzysztof Dyba [ctb] (ORCID: <https://orcid.org/0000-0002-8614-3816>),\n  Edzer Pebesma [ctb] (ORCID: <https://orcid.org/0000-0001-8049-7069>),\n  Barry Rowlingson [ctb] (ORCID: <https://orcid.org/0000-0002-8586-6625>),\n  Michael D. Sumner [ctb] (ORCID:\n    <https://orcid.org/0000-0002-2471-7511>)",
+        "Packaged": "2026-05-09 12:25:47 UTC; rhijm",
+        "Author": "Robert J. Hijmans [cre, aut] (ORCID:\n    <https://orcid.org/0000-0001-5872-2872>),\n  Andrew Brown [aut] (ORCID: <https://orcid.org/0000-0002-4565-533X>),\n  Márcia Barbosa [aut] (ORCID: <https://orcid.org/0000-0001-8972-7713>),\n  Krzysztof Dyba [ctb] (ORCID: <https://orcid.org/0000-0002-8614-3816>),\n  Roger Bivand [ctb] (ORCID: <https://orcid.org/0000-0003-2392-6140>),\n  Michael Chirico [ctb] (ORCID: <https://orcid.org/0000-0003-0787-087X>),\n  Emanuele Cordano [ctb] (ORCID: <https://orcid.org/0000-0002-3508-5898>),\n  Edzer Pebesma [ctb] (ORCID: <https://orcid.org/0000-0001-8049-7069>),\n  Barry Rowlingson [ctb] (ORCID: <https://orcid.org/0000-0002-8586-6625>),\n  Michael D. Sumner [ctb] (ORCID:\n    <https://orcid.org/0000-0002-2471-7511>)",
         "Repository": "CRAN",
-        "Date/Publication": "2026-03-26 16:40:03 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 13:12:37 UTC; windows",
+        "Date/Publication": "2026-05-10 05:10:02 UTC",
+        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-05-10 23:51:42 UTC; windows",
         "Archs": "x64",
         "RemoteType": "standard",
         "RemotePkgRef": "terra",
         "RemoteRef": "terra",
         "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteSha": "1.9-11"
+        "RemoteSha": "1.9-27"
       }
     },
     "tibble": {
@@ -2971,36 +2504,6 @@
         "RemoteRef": "tinytex",
         "RemoteRepos": "https://cran.rstudio.com",
         "RemoteSha": "0.59"
-      }
-    },
-    "tzdb": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "tzdb",
-        "Title": "Time Zone Database Information",
-        "Version": "0.5.0",
-        "Authors@R": "c(\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Howard\", \"Hinnant\", role = \"cph\",\n           comment = \"Author of the included date library\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "Provides an up-to-date copy of the Internet Assigned Numbers\n    Authority (IANA) Time Zone Database. It is updated periodically to\n    reflect changes made by political bodies to time zone boundaries, UTC\n    offsets, and daylight saving time rules. Additionally, this package\n    provides a C++ interface for working with the 'date' library. 'date'\n    provides comprehensive support for working with dates and date-times,\n    which this package exposes to make it easier for other R packages to\n    utilize. Headers are provided for calendar specific calculations,\n    along with a limited interface for time zone manipulations.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://tzdb.r-lib.org, https://github.com/r-lib/tzdb",
-        "BugReports": "https://github.com/r-lib/tzdb/issues",
-        "Depends": "R (>= 4.0.0)",
-        "Suggests": "covr, testthat (>= 3.0.0)",
-        "LinkingTo": "cpp11 (>= 0.5.2)",
-        "Biarch": "yes",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-03-14 18:41:13 UTC; davis",
-        "Author": "Davis Vaughan [aut, cre],\n  Howard Hinnant [cph] (Author of the included date library),\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Davis Vaughan <davis@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-03-15 22:50:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 14:24:47 UTC; windows",
-        "Archs": "x64"
       }
     },
     "units": {
@@ -3154,42 +2657,6 @@
         "Repository": "CRAN",
         "Date/Publication": "2026-02-04 06:40:10 UTC",
         "Built": "R 4.6.0; ; 2026-04-25 13:11:04 UTC; windows"
-      }
-    },
-    "vroom": {
-      "Source": "CRAN",
-      "Repository": "https://cran.rstudio.com",
-      "description": {
-        "Package": "vroom",
-        "Title": "Read and Write Rectangular Text Data Quickly",
-        "Version": "1.7.1",
-        "Authors@R": "c(\n    person(\"Jim\", \"Hester\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-2739-7082\")),\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Jennifer\", \"Bryan\", , \"jenny@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-6983-2759\")),\n    person(\"Shelby\", \"Bearrows\", role = \"ctb\"),\n    person(\"https://github.com/mandreyel/\", role = \"cph\",\n           comment = \"mio library\"),\n    person(\"Jukka\", \"Jylänki\", role = \"cph\",\n           comment = \"grisu3 implementation\"),\n    person(\"Mikkel\", \"Jørgensen\", role = \"cph\",\n           comment = \"grisu3 implementation\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\"))\n  )",
-        "Description": "The goal of 'vroom' is to read and write data (like 'csv',\n    'tsv' and 'fwf') quickly. When reading it uses a quick initial\n    indexing step, then reads the values lazily , so only the data you\n    actually use needs to be read.  The writer formats the data in\n    parallel and writes to disk asynchronously from formatting.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://vroom.tidyverse.org, https://github.com/tidyverse/vroom",
-        "BugReports": "https://github.com/tidyverse/vroom/issues",
-        "Depends": "R (>= 4.1)",
-        "Imports": "bit64, cli (>= 3.2.0), crayon, glue, hms, lifecycle (>=\n1.0.3), methods, rlang (>= 1.1.0), stats, tibble (>= 2.0.0),\ntidyselect, tzdb (>= 0.1.1), vctrs (>= 0.2.0), withr",
-        "Suggests": "archive, bench (>= 1.1.0), covr, curl, dplyr, forcats, fs,\nggplot2, knitr, patchwork, prettyunits, purrr, rmarkdown,\nrstudioapi, scales, spelling, testthat (>= 2.1.0), tidyr,\nutils, waldo, xml2",
-        "LinkingTo": "cpp11 (>= 0.2.0), progress (>= 1.2.3), tzdb (>= 0.1.1)",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "nycflights13, tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Config/testthat/parallel": "false",
-        "Config/usethis/last-upkeep": "2025-11-25",
-        "Copyright": "file COPYRIGHTS",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "RoxygenNote": "7.3.3",
-        "Config/build/compilation-database": "true",
-        "NeedsCompilation": "yes",
-        "Packaged": "2026-03-30 20:25:37 UTC; jenny",
-        "Author": "Jim Hester [aut] (ORCID: <https://orcid.org/0000-0002-2739-7082>),\n  Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>),\n  Jennifer Bryan [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-6983-2759>),\n  Shelby Bearrows [ctb],\n  https://github.com/mandreyel/ [cph] (mio library),\n  Jukka Jylänki [cph] (grisu3 implementation),\n  Mikkel Jørgensen [cph] (grisu3 implementation),\n  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
-        "Maintainer": "Jennifer Bryan <jenny@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-03-31 05:10:02 UTC",
-        "Built": "R 4.6.0; x86_64-w64-mingw32; 2026-04-25 15:29:04 UTC; windows",
-        "Archs": "x64"
       }
     },
     "withr": {
@@ -3359,361 +2826,82 @@
       "checksum": "05bdb783ee6514c8c072e47680af8ff7"
     },
     "App.R": {
-      "checksum": "edb7067cccaa5f61b2252ee72cbaddb4"
+      "checksum": "7213c7288131ad0b0b3a16fdae869157"
     },
-    "cluster_data/Angola312Angola_Clusters.kml": {
-      "checksum": "d92cff69cdace51bfff7faf8a83550dd"
+    "cluster_data/AngolaAngola_Clusters.rds": {
+      "checksum": "2332f31fa22dcf68ca924002865bba47"
     },
-    "cluster_data/AngolaAngola_Clusters.dbf": {
-      "checksum": "e951aef2fd610fc850749630e5dded69"
+    "cluster_data/Carrinho shapefiles.rds": {
+      "checksum": "61281bfe8e9ffbbad92ef4b43a502c4c"
     },
-    "cluster_data/AngolaAngola_Clusters.prj": {
-      "checksum": "770edf0b1e8912c4dfe2b5d3a79d8eba"
+    "cluster_data/Côte d'IvoireIvory Coast_Clusters.rds": {
+      "checksum": "17074237f0e2893fdb7e161274d2ab8a"
     },
-    "cluster_data/AngolaAngola_Clusters.shp": {
-      "checksum": "9fc3c179b15c7e4d203c1512a0deebd5"
+    "cluster_data/EthiopiaEthiopia_Clusters.rds": {
+      "checksum": "37b3d1330d8c3751340e04bbc1cf1e50"
     },
-    "cluster_data/AngolaAngola_Clusters.shx": {
-      "checksum": "7f67038a27e063d9b2b06f110d3934fc"
+    "cluster_data/GhanaGhana_Clusters.rds": {
+      "checksum": "c4566b675cd8fe63175cf149d7fb3160"
     },
-    "cluster_data/Carrinho shapefiles.dbf": {
-      "checksum": "d3ac2937851df25b37c5902073fbe676"
+    "cluster_data/KenyaKenya_Clusters.rds": {
+      "checksum": "32aac9dbb21cb891580bf90e14f71a37"
     },
-    "cluster_data/Carrinho shapefiles.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
+    "cluster_data/MaliMali_Clusters.rds": {
+      "checksum": "5b93958c6bc841bbc44066450f0fdc1a"
     },
-    "cluster_data/Carrinho shapefiles.shp": {
-      "checksum": "b32b2f70ca70eda34c64866d793f92c9"
+    "cluster_data/MozambiqueMozambique_Clusters.rds": {
+      "checksum": "36d5e137391be1cf7e55b7c9d9f02cb4"
     },
-    "cluster_data/Carrinho shapefiles.shx": {
-      "checksum": "a1699ba4643c194df5b2f4b75a4c8427"
+    "cluster_data/NigeriaNigeria_Clusters.rds": {
+      "checksum": "487e34c6e9860ca981d0eedf00bff377"
     },
-    "cluster_data/Côte d'IvoireIvory Coast_Clusters.dbf": {
-      "checksum": "603357076af7230eedac668b68d7073d"
+    "cluster_data/TanzaniaTanzania_Clusters.rds": {
+      "checksum": "e9d5be59ff48d6a69443dd6884121f5d"
     },
-    "cluster_data/Côte d'IvoireIvory Coast_Clusters.prj": {
-      "checksum": "770edf0b1e8912c4dfe2b5d3a79d8eba"
+    "cluster_data/UgandaUganda_Clusters.rds": {
+      "checksum": "ac5243033bf7c6a58486d88845cf42d9"
     },
-    "cluster_data/Côte d'IvoireIvory Coast_Clusters.shp": {
-      "checksum": "72cd4640ee4d876e0f8629bdc4553c88"
+    "cluster_data/ZambiaZambia_Clusters.rds": {
+      "checksum": "4f8c0a1a490000cc3528e819378ac0a8"
     },
-    "cluster_data/Côte d'IvoireIvory Coast_Clusters.shx": {
-      "checksum": "c7a2b5d175bd3aa20e0614b0ed0e94e8"
+    "gadm_data/Angola Updated gadm.rds": {
+      "checksum": "61281bfe8e9ffbbad92ef4b43a502c4c"
     },
-    "cluster_data/EthiopiaEthiopia_Clusters.dbf": {
-      "checksum": "332d8d298f27ffc5148abc4081411faf"
+    "gadm_data/gadm41_AGO_3.rds": {
+      "checksum": "4423568be43fbcd33cd7e0ea4c7620be"
     },
-    "cluster_data/EthiopiaEthiopia_Clusters.prj": {
-      "checksum": "770edf0b1e8912c4dfe2b5d3a79d8eba"
+    "gadm_data/gadm41_CIV_4.rds": {
+      "checksum": "83c75298d87cb9e7503e45eff6e6a7fe"
     },
-    "cluster_data/EthiopiaEthiopia_Clusters.shp": {
-      "checksum": "b181a710a6e4b4252bd6fd8c3551666a"
+    "gadm_data/gadm41_ETH_3.rds": {
+      "checksum": "e79a26b9c6aa0eb4244e6959e1848202"
     },
-    "cluster_data/EthiopiaEthiopia_Clusters.shx": {
-      "checksum": "0af4be178926c41f2cbed4afbf929d2f"
+    "gadm_data/gadm41_GHA_2.rds": {
+      "checksum": "44238633338729cb90f83981c4e15241"
     },
-    "cluster_data/Ghana60Ghana_Clusters.kml": {
-      "checksum": "792bd63fede43d8436245b12104e6c5d"
+    "gadm_data/gadm41_KEN_2.rds": {
+      "checksum": "e1acc98109d885f1a53869c49ba958cf"
     },
-    "cluster_data/GhanaGhana_Clusters.dbf": {
-      "checksum": "9d8569e167d5542b57598019eae3706f"
+    "gadm_data/gadm41_KEN_3.rds": {
+      "checksum": "231f8001c71e621cf6349e9f64cc5c60"
     },
-    "cluster_data/GhanaGhana_Clusters.prj": {
-      "checksum": "e729936bf5360b37a15365fc295a1901"
+    "gadm_data/gadm41_MLI_4.rds": {
+      "checksum": "382e1dc49104c7190f9f48976c92a17e"
     },
-    "cluster_data/GhanaGhana_Clusters.shp": {
-      "checksum": "9ece6797543da80e06bc7f6f67b4f663"
+    "gadm_data/gadm41_MOZ_3.rds": {
+      "checksum": "5f19523ecca07b3aa2a6ce9ee2d0329c"
     },
-    "cluster_data/GhanaGhana_Clusters.shx": {
-      "checksum": "2d6de64b9fa5238725614ee1cb33691b"
+    "gadm_data/gadm41_NGA_2.rds": {
+      "checksum": "e0b972a411daf36768cb2e62df0b30c8"
     },
-    "cluster_data/KenyaKenya_Clusters.dbf": {
-      "checksum": "cbd5e11bedadd01764079ac3ed735db9"
+    "gadm_data/gadm41_TZA_3.rds": {
+      "checksum": "6514a8d52c653af25da91bd17887f2cd"
     },
-    "cluster_data/KenyaKenya_Clusters.prj": {
-      "checksum": "e729936bf5360b37a15365fc295a1901"
+    "gadm_data/gadm41_UGA_4.rds": {
+      "checksum": "21816d920409ce5959ea8ce765607ef5"
     },
-    "cluster_data/KenyaKenya_Clusters.shp": {
-      "checksum": "59058dd7f6bd222c8f54566b65f93263"
-    },
-    "cluster_data/KenyaKenya_Clusters.shx": {
-      "checksum": "10e0e2c4f82aa5b4e872e0597a5160ed"
-    },
-    "cluster_data/MaliMali_Clusters.dbf": {
-      "checksum": "49c17b44a411cc75ef93240fbd1989f7"
-    },
-    "cluster_data/MaliMali_Clusters.prj": {
-      "checksum": "770edf0b1e8912c4dfe2b5d3a79d8eba"
-    },
-    "cluster_data/MaliMali_Clusters.shp": {
-      "checksum": "afa13d63fe40ac397e5c2720b0744ca2"
-    },
-    "cluster_data/MaliMali_Clusters.shx": {
-      "checksum": "cd4599ad3b37a631bd838dfbbde11128"
-    },
-    "cluster_data/MozambiqueMozambique_Clusters.dbf": {
-      "checksum": "f54b5b32e233251f5914714a4e45bd69"
-    },
-    "cluster_data/MozambiqueMozambique_Clusters.prj": {
-      "checksum": "770edf0b1e8912c4dfe2b5d3a79d8eba"
-    },
-    "cluster_data/MozambiqueMozambique_Clusters.shp": {
-      "checksum": "277e2aff0cbfd42753c5272c7bf31bbf"
-    },
-    "cluster_data/MozambiqueMozambique_Clusters.shx": {
-      "checksum": "afcaa90d40c05572f4470b97dbe34702"
-    },
-    "cluster_data/Nigeria201Nigeria_Clusters.kml": {
-      "checksum": "5ea9622d38ae97c1c25323c5ae2f3589"
-    },
-    "cluster_data/NigeriaNigeria_Clusters.dbf": {
-      "checksum": "24e5a94b6a89d9f46ae33a8f91c3c71d"
-    },
-    "cluster_data/NigeriaNigeria_Clusters.prj": {
-      "checksum": "e729936bf5360b37a15365fc295a1901"
-    },
-    "cluster_data/NigeriaNigeria_Clusters.shp": {
-      "checksum": "4759c907c1e36b89bccccf9eab856a39"
-    },
-    "cluster_data/NigeriaNigeria_Clusters.shx": {
-      "checksum": "d1f375fc584bc434d22333dbff8a95ab"
-    },
-    "cluster_data/Tanzania300Tanzania_Clusters.kml": {
-      "checksum": "dfd46c7e5f3759c80ce633bc1388e7fb"
-    },
-    "cluster_data/TanzaniaTanzania_Clusters.dbf": {
-      "checksum": "6875eee6c8712365ee108cfd9147bdf0"
-    },
-    "cluster_data/TanzaniaTanzania_Clusters.prj": {
-      "checksum": "770edf0b1e8912c4dfe2b5d3a79d8eba"
-    },
-    "cluster_data/TanzaniaTanzania_Clusters.shp": {
-      "checksum": "4c8654c1ca36776e38962fae8abec9bc"
-    },
-    "cluster_data/TanzaniaTanzania_Clusters.shx": {
-      "checksum": "daab80c1bf7c73a6e42f1c55f2aadc26"
-    },
-    "cluster_data/UgandaUganda_Clusters.dbf": {
-      "checksum": "cfe942ba682dfbe3fdb803b5126af6d5"
-    },
-    "cluster_data/UgandaUganda_Clusters.prj": {
-      "checksum": "770edf0b1e8912c4dfe2b5d3a79d8eba"
-    },
-    "cluster_data/UgandaUganda_Clusters.shp": {
-      "checksum": "3b0dcf6ded615746760113ef2afcaec4"
-    },
-    "cluster_data/UgandaUganda_Clusters.shx": {
-      "checksum": "5a3c5c5c20bf7f182ab2fdbc8f6092f0"
-    },
-    "cluster_data/ZambiaZambia_Clusters.dbf": {
-      "checksum": "5d1c71e3c7cdc0afccd806180ed571f1"
-    },
-    "cluster_data/ZambiaZambia_Clusters.prj": {
-      "checksum": "e729936bf5360b37a15365fc295a1901"
-    },
-    "cluster_data/ZambiaZambia_Clusters.shp": {
-      "checksum": "29f81535fda0ca2a3c409fa507187be6"
-    },
-    "cluster_data/ZambiaZambia_Clusters.shx": {
-      "checksum": "c8b8f1595d53d4f0265417039a822cb3"
-    },
-    "credentials/humphrey-universal-c15e72d817f0.json": {
-      "checksum": "dca40d732ddc3bb92a29f2b6cc7cd223"
-    },
-    "gadm_data/Angola Updated gadm.dbf": {
-      "checksum": "d3ac2937851df25b37c5902073fbe676"
-    },
-    "gadm_data/Angola Updated gadm.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/Angola Updated gadm.shp": {
-      "checksum": "b32b2f70ca70eda34c64866d793f92c9"
-    },
-    "gadm_data/Angola Updated gadm.shx": {
-      "checksum": "a1699ba4643c194df5b2f4b75a4c8427"
-    },
-    "gadm_data/gadm41_AGO_3.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_AGO_3.dbf": {
-      "checksum": "677757998f7dc594883eadf6440333e4"
-    },
-    "gadm_data/gadm41_AGO_3.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_AGO_3.shp": {
-      "checksum": "b32b2f70ca70eda34c64866d793f92c9"
-    },
-    "gadm_data/gadm41_AGO_3.shx": {
-      "checksum": "a1699ba4643c194df5b2f4b75a4c8427"
-    },
-    "gadm_data/gadm41_CIV_4.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_CIV_4.dbf": {
-      "checksum": "5a8a811643d10caf9c404559b6f139f0"
-    },
-    "gadm_data/gadm41_CIV_4.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_CIV_4.shp": {
-      "checksum": "8544045bcb3f321844f100ed9fff300e"
-    },
-    "gadm_data/gadm41_CIV_4.shx": {
-      "checksum": "08b0ab1f7ad251181c9827aa92cb1549"
-    },
-    "gadm_data/gadm41_ETH_3.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_ETH_3.dbf": {
-      "checksum": "736a853543662db87a2152d51ba3585d"
-    },
-    "gadm_data/gadm41_ETH_3.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_ETH_3.shp": {
-      "checksum": "2e5e32c87c4a6609275c53efaa9a3bf6"
-    },
-    "gadm_data/gadm41_ETH_3.shx": {
-      "checksum": "3140922a083ba3635e51d5b392d3f4b1"
-    },
-    "gadm_data/gadm41_GHA_2.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_GHA_2.dbf": {
-      "checksum": "a3c4381b752841cdac275b605ce1c578"
-    },
-    "gadm_data/gadm41_GHA_2.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_GHA_2.shp": {
-      "checksum": "2475b2f76618e265737371552600bc46"
-    },
-    "gadm_data/gadm41_GHA_2.shx": {
-      "checksum": "4a79408bf1864bca92af1ab315f904e5"
-    },
-    "gadm_data/gadm41_KEN_2.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_KEN_2.dbf": {
-      "checksum": "533349b0fdbe2ea8f6ab4da9297e90a7"
-    },
-    "gadm_data/gadm41_KEN_2.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_KEN_2.shp": {
-      "checksum": "3bfe7c5f66efd9fa47e455c6da0ec72d"
-    },
-    "gadm_data/gadm41_KEN_2.shx": {
-      "checksum": "f9e580eac31b799bb9b622867f7af85f"
-    },
-    "gadm_data/gadm41_KEN_3.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_KEN_3.dbf": {
-      "checksum": "61eab248d2b9766b62fde94abe834c41"
-    },
-    "gadm_data/gadm41_KEN_3.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_KEN_3.shp": {
-      "checksum": "6e959d5d4b6fd21bb79f8d89a6fcd7be"
-    },
-    "gadm_data/gadm41_KEN_3.shx": {
-      "checksum": "aaf6ced8a9a6df0c261548b6ca668b41"
-    },
-    "gadm_data/gadm41_MLI_4.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_MLI_4.dbf": {
-      "checksum": "78970f992097bb8179f50c7ae14bd543"
-    },
-    "gadm_data/gadm41_MLI_4.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_MLI_4.shp": {
-      "checksum": "9860cdf2ea87f68436558dafde13f297"
-    },
-    "gadm_data/gadm41_MLI_4.shx": {
-      "checksum": "086eb12a44e566de3cab37bd198dcc07"
-    },
-    "gadm_data/gadm41_MOZ_3.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_MOZ_3.dbf": {
-      "checksum": "349a6a03bd1b884c9b5057f55ef66649"
-    },
-    "gadm_data/gadm41_MOZ_3.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_MOZ_3.shp": {
-      "checksum": "b8edefd8896d348fae116f8d7da6db0c"
-    },
-    "gadm_data/gadm41_MOZ_3.shx": {
-      "checksum": "87bd2af84e77e4c920e375bf70c6d91c"
-    },
-    "gadm_data/gadm41_NGA_2.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_NGA_2.dbf": {
-      "checksum": "699d9bc00f9929b7d9c411b03ec33e6e"
-    },
-    "gadm_data/gadm41_NGA_2.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_NGA_2.shp": {
-      "checksum": "334d6c70b2018e4d510fb0656b29c7b5"
-    },
-    "gadm_data/gadm41_NGA_2.shx": {
-      "checksum": "eecae56eac7f4defaef855b39705de4f"
-    },
-    "gadm_data/gadm41_TZA_3.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_TZA_3.dbf": {
-      "checksum": "72b5c7bea0a7e8cb87a81e56b971f755"
-    },
-    "gadm_data/gadm41_TZA_3.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_TZA_3.shp": {
-      "checksum": "024df0d65e30bae513162a4d1fe62ba6"
-    },
-    "gadm_data/gadm41_TZA_3.shx": {
-      "checksum": "1167695702392a3fa65aae5c717fb192"
-    },
-    "gadm_data/gadm41_UGA_4.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_UGA_4.dbf": {
-      "checksum": "9bd0b129b5abfb627f623794d958b633"
-    },
-    "gadm_data/gadm41_UGA_4.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_UGA_4.shp": {
-      "checksum": "f5b91512b8007c8043398cb8c6a0b2ed"
-    },
-    "gadm_data/gadm41_UGA_4.shx": {
-      "checksum": "71b829021eb9b8b1d99ab03140fee55e"
-    },
-    "gadm_data/gadm41_ZMB_2.cpg": {
-      "checksum": "ae3b3df9970b49b6523e608759bc957d"
-    },
-    "gadm_data/gadm41_ZMB_2.dbf": {
-      "checksum": "5feb75443d6b7d831c719e41c45dd022"
-    },
-    "gadm_data/gadm41_ZMB_2.prj": {
-      "checksum": "c742bee3d4edfc2948a2ad08de1790a5"
-    },
-    "gadm_data/gadm41_ZMB_2.shp": {
-      "checksum": "2140d868e7e92fd62d5b36b85b025fd5"
-    },
-    "gadm_data/gadm41_ZMB_2.shx": {
-      "checksum": "a5192a32c92cffaeff3d6678eeda58af"
-    },
-    "humphrey-universal-c15e72d817f0.json": {
-      "checksum": "dca40d732ddc3bb92a29f2b6cc7cd223"
+    "gadm_data/gadm41_ZMB_2.rds": {
+      "checksum": "b4bdacb254cdf4b8d6c1af9f67c3664d"
     },
     "README.md": {
       "checksum": "345eee933a65165a48e2028064789e94"
